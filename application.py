@@ -3,4 +3,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "I love you Dawn, and gratulerer til nye kontrakten! Greetings, Rafael :)"
+    return "Python flask website hosted on Azure for free!"
