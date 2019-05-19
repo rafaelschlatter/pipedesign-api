@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from ml import model
 app = Flask(__name__)
 
 
@@ -12,7 +13,8 @@ def hello():
 @app.route("/pipedesignml/api/predict", methods=['POST'])
 def predict():
     data = request.get_json(force=True)
-    prediction = data["number"] * 2
+    predictor = model.Model()
+    prediction = predictor.predict(data)
     return jsonify({"prediction": prediction})
 
 
