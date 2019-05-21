@@ -1,4 +1,4 @@
-# Appservice-sample
+# Pipedesign-ML
 
 This is a sample python flask API that is hosted on Microsoft Azure app service (free tier). The API consists of one method, `predict()` which returns the double of the given number.
 
