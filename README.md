@@ -19,18 +19,25 @@ pip install -r requirements.txt
 ````
 
 ## Usage in client application
-The following code demonstrates usage with python 3:
+The following code demonstrates usage with valid json data in python 3:
 
 ````python
 import requests
 
 url = "http://rschlatter.azurewebsites.net/pipedesignml/api/predict"
-r = requests.post(url, json={'number': 2})
+json_data = {
+    "timestamp": "2019-05-21 10:13:37.750000",
+    "design_id": "0a234fea9682454facab730c0a7f83f0",
+    "pipe_segments": [1, 2, 3],
+    "viability": {"viable": "true"}
+}
+
+r = requests.post(url, json=json_data)
 
 print(r.json())
 ````
 
-This should display the following response:
+This should display the following response (length of the `pipe_segments` list):
 ````javascript
-{'prediction': 4}
+{'prediction': 3}
 ````
