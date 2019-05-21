@@ -1,6 +1,6 @@
 # Pipedesign-ml
 
-This is a sample python flask API that is hosted on Microsoft Azure app service (free tier). The API consists of one method, `predict()` which returns the double of the given number.
+This is a sample python flask API that is hosted on Microsoft Azure app service (free tier). The API consists of one method, `predict()` which atm returns the length of a parameter in the json file.
 
 ## Setup
 Azure app service on linux needs a **requirements.txt** file for all dependencies except flask. A pipenv workflow probably fails (not tested).

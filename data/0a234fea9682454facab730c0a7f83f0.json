@@ -1,1 +1,202 @@
-{"timestamp": "2019-05-21 10:13:37.750000", "design_id": "0a234fea9682454facab730c0a7f83f0", "pipe_segments": [{"diameter": 150, "points": [{"Y": 0.0, "X": 0.0, "point_id": 1, "Z": 0.0, "end": "Start"}, {"Y": 1000.0, "X": 0.0, "point_id": 2, "Z": 0.0, "end": "End"}], "type": "cylinder", "segment_id": 1}, {"diameter": 150, "points": [{"Y": 1000.0, "X": 0.0, "point_id": 1, "Z": 0.0, "end": "Start"}, {"Y": 1000.0, "X": 0.0, "point_id": 2, "Z": 2000.0, "end": "End"}], "type": "cylinder", "segment_id": 2}, {"diameter": 150, "points": [{"Y": 1000.0, "X": 0.0, "point_id": 1, "Z": 2000.0, "end": "Start"}, {"Y": 3000.0, "X": 0.0, "point_id": 2, "Z": 2000.0, "end": "End"}], "type": "cylinder", "segment_id": 3}, {"diameter": 150, "points": [{"Y": 3000.0, "X": 0.0, "point_id": 1, "Z": 2000.0, "end": "Start"}, {"Y": 3000.0, "X": 0.0, "point_id": 2, "Z": 0.0, "end": "End"}], "type": "cylinder", "segment_id": 4}, {"diameter": 150, "points": [{"Y": 3000.0, "X": 0.0, "point_id": 1, "Z": 0.0, "end": "Start"}, {"Y": 3000.0, "X": 2000.0, "point_id": 2, "Z": 0.0, "end": "End"}], "type": "cylinder", "segment_id": 5}, {"diameter": 150, "points": [{"Y": 3000.0, "X": 2000.0, "point_id": 1, "Z": 0.0, "end": "Start"}, {"Y": 2000.0, "X": 2000.0, "point_id": 2, "Z": 0.0, "end": "End"}], "type": "cylinder", "segment_id": 6}, {"diameter": 150, "points": [{"Y": 2000.0, "X": 2000.0, "point_id": 1, "Z": 0.0, "end": "Start"}, {"Y": 2000.0, "X": 2000.0, "point_id": 2, "Z": -1000.0, "end": "End"}], "type": "cylinder", "segment_id": 7}, {"diameter": 150, "points": [{"Y": 2000.0, "X": 2000.0, "point_id": 1, "Z": -1000.0, "end": "Start"}, {"Y": 0.0, "X": 2000.0, "point_id": 2, "Z": -1000.0, "end": "End"}], "type": "cylinder", "segment_id": 8}, {"diameter": 150, "points": [{"Y": 0.0, "X": 2000.0, "point_id": 1, "Z": -1000.0, "end": "Start"}, {"Y": 0.0, "X": 2000.0, "point_id": 2, "Z": 0.0, "end": "End"}], "type": "cylinder", "segment_id": 9}], "viability": {"violations": {"HighpointRule": 0, "CollisionRule": 0}, "viable": true}}
+{
+    "timestamp": "2019-05-21 10:13:37.750000",
+    "design_id": "0a234fea9682454facab730c0a7f83f0",
+    "pipe_segments": [
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 0.0,
+                    "X": 0.0,
+                    "point_id": 1,
+                    "Z": 0.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 1000.0,
+                    "X": 0.0,
+                    "point_id": 2,
+                    "Z": 0.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 1
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 1000.0,
+                    "X": 0.0,
+                    "point_id": 1,
+                    "Z": 0.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 1000.0,
+                    "X": 0.0,
+                    "point_id": 2,
+                    "Z": 2000.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 2
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 1000.0,
+                    "X": 0.0,
+                    "point_id": 1,
+                    "Z": 2000.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 3000.0,
+                    "X": 0.0,
+                    "point_id": 2,
+                    "Z": 2000.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 3
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 3000.0,
+                    "X": 0.0,
+                    "point_id": 1,
+                    "Z": 2000.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 3000.0,
+                    "X": 0.0,
+                    "point_id": 2,
+                    "Z": 0.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 4
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 3000.0,
+                    "X": 0.0,
+                    "point_id": 1,
+                    "Z": 0.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 3000.0,
+                    "X": 2000.0,
+                    "point_id": 2,
+                    "Z": 0.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 5
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 3000.0,
+                    "X": 2000.0,
+                    "point_id": 1,
+                    "Z": 0.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 2000.0,
+                    "X": 2000.0,
+                    "point_id": 2,
+                    "Z": 0.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 6
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 2000.0,
+                    "X": 2000.0,
+                    "point_id": 1,
+                    "Z": 0.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 2000.0,
+                    "X": 2000.0,
+                    "point_id": 2,
+                    "Z": -1000.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 7
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 2000.0,
+                    "X": 2000.0,
+                    "point_id": 1,
+                    "Z": -1000.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 0.0,
+                    "X": 2000.0,
+                    "point_id": 2,
+                    "Z": -1000.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 8
+        },
+        {
+            "diameter": 150,
+            "points": [
+                {
+                    "Y": 0.0,
+                    "X": 2000.0,
+                    "point_id": 1,
+                    "Z": -1000.0,
+                    "end": "Start"
+                },
+                {
+                    "Y": 0.0,
+                    "X": 2000.0,
+                    "point_id": 2,
+                    "Z": 0.0,
+                    "end": "End"
+                }
+            ],
+            "type": "cylinder",
+            "segment_id": 9
+        }
+    ],
+    "viability": {
+        "violations": {
+            "HighpointRule": 0,
+            "CollisionRule": 0
+        },
+        "viable": true
+    }
+}

@@ -13,7 +13,12 @@ def hello():
 @app.route("/pipedesignml/api/predict", methods=['POST'])
 def predict():
     data = request.get_json(force=True)
+
     predictor = model.Model()
+    isValidJson = predictor.validate_json(data)
+    if isValidJson == False:
+        return jsonify({"Json format error": "Missing parameter"})
+
     prediction = predictor.predict(data)
     return jsonify({"prediction": prediction})
 
