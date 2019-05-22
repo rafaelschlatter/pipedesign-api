@@ -16,6 +16,11 @@ class Preprocessor():
 
     def create_training_data(self, pipedesign_list):
         """Creates a training dataset from a list of pipedesign dictionaries.
+
+        Args:
+            pipedesign_list (list): A list of pipedesign dictionaries.
+
+        Returns: A pandas df or numpy array (to be decided...)
         """
         pass
 
