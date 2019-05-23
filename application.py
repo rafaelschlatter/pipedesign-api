@@ -17,7 +17,8 @@ pipedesign_model = api.model(name="Pipedesign model", model=
 )
 
 
-@api.route("/pipedesignml/api/predict", methods=["post"])
+
+@api.route("/", methods=["post"])
 class Prediction(Resource):
     @api.expect(pipedesign_model)
     def post(self):
