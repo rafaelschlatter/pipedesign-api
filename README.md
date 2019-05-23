@@ -28,7 +28,7 @@ url = "http://pipedesign.azurewebsites.net/machinelearning/predict"
 json_data = {
     "timestamp": "2019-05-21 10:13:37.750000",
     "design_id": "0a234fea9682454facab730c0a7f83f0",
-    "pipe_segments": [1, 2, 3],
+    "pipe_segments": [{}, {}, {}],
     "viability": {"viable": "true"}
 }
 

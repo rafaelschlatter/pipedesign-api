@@ -1,6 +1,7 @@
 import os
 import json
 from azure.storage.blob import BlockBlobService, PublicAccess
+import pandas as pd
 
 
 class Preprocessor():
@@ -22,7 +23,9 @@ class Preprocessor():
 
         Returns: A pandas df or numpy array (to be decided...)
         """
-        pass
+
+        dataset = pd.DataFrame(pipedesign_list)
+        return dataset
 
 
     def download_blobs(self, container_name, number_of_blobs=5):

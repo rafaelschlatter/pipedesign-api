@@ -12,27 +12,28 @@ pipedesign_model = api.model(name="Pipedesign model", model=
     {
         "timestamp": fields.String(required=True),
         "design_id": fields.String(required=True),
-        "pipe_segments": fields.Raw(required=False),
-        "viability": fields.Raw(required=False)
+        "pipe_segments": fields.List(cls_or_instance=fields.Raw, required=True),
+        "viability": fields.Raw(required=True)
     }
 )
 
 
-@ns_machinelearning.route("/predict", methods=["post"])
+@ns_machinelearning.route("/")
 class Prediction(Resource):
-    @api.expect(pipedesign_model)
+    @api.expect(pipedesign_model, validate=True)
     def post(self):
-        """This method returns a prediction on the viability of a pipedesign.
-        """
+        """This method returns a prediction on the viability of a single pipedesign."""
 
         data = api.payload
         predictor = model.Model()
-        isValidJson = predictor.validate_json(data)
-        if isValidJson == False:
-            return jsonify({"Json format error": "Missing parameter"})
-
         prediction = predictor.predict(data)
         return jsonify({"prediction": prediction})
+
+
+    def get(self):
+        """Trains a model on pipedesign data from Azure blob storage."""
+
+        return jsonify({"Error": "Not implemented yet."})
 
 
 if __name__ == '__main__':
