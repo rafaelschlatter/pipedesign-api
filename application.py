@@ -12,9 +12,9 @@ api = Api(
     contact="rafaelschlatter@gmail.com"
 )
 
-ns_predict = api.namespace('predict', description='Namespace holding all methods related to predicting.')
-ns_train = api.namespace('train', description='Namespace holding all methods related to training.')
+ns_ml = api.namespace('machinelearning', description='Namespace holding all methods related to machine learning.')
 ns_model = api.namespace('model', description="Namespace holding all methods related to the model.")
+ns_pipedesign = api.namespace('pipedesign', description="Namespace holding all methods related to pipedesigns.")
 
 pipedesign_model = api.model(name="Pipedesign model", model=
     {
@@ -26,8 +26,14 @@ pipedesign_model = api.model(name="Pipedesign model", model=
 )
 
 
-@ns_predict.route("/")
-class Prediction(Resource):
+@ns_ml.route("/")
+class MachineLearning(Resource):
+    def get(self):
+        """Trains a model on pipedesign data from Azure blob storage."""
+
+        return jsonify({"Error": "Not implemented yet"})
+
+
     @api.expect(pipedesign_model, validate=True)
     def post(self):
         """Returns a prediction on the viability of a single pipedesign."""
@@ -38,27 +44,35 @@ class Prediction(Resource):
         return jsonify({"prediction": prediction, "confidence": "Not implemented yet"})
 
 
-    @api.expect(pipedesign_model, validate=True)
-    def post(self):
-        """Returns predictions on the viability of a multiple pipedesigns."""
-
-        return jsonify({"Error": "Not implemented yet"})
-
-
-@ns_train.route("/")
-class Training(Resource):
-    def get(self):
-        """Trains a model on pipedesign data from Azure blob storage."""
-
-        return jsonify({"Error": "Not implemented yet"})
-
-
 @ns_model.route("/")
 class Model(Resource):
     def get(self):
         """Gets the current model information."""
 
         return jsonify({"Error": "Not implemented yet"})
+
+
+    def post(self):
+        """Updates the model (new parameters, training schedule, etc...)."""
+
+        return jsonify({"Error": "Not implemented yet"})
+
+
+@ns_pipedesign.route("/<pipedesign_id>")
+@api.param('pipedesign_id', 'Alphanumeric id of pipedesign')
+class Pipedesign(Resource):
+    def get(self, pipedesign_id):
+        """Gets a pipedesign in json format."""
+
+        return jsonify({"Error": "Not implemented yet"})
+
+
+    @api.expect(pipedesign_model, validate=True)
+    def post(self):
+        """Stores a pipedesign in to Azure blob storage."""
+
+        return jsonify({"Error": "Not implemented yet"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
