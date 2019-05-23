@@ -1,26 +1,37 @@
 from flask import Flask, request, jsonify
+from flask_restplus import Resource, Api, fields
 from ml import model
+
+
 app = Flask(__name__)
+api = Api(app=app, version='0.1', title='Pipedesign ML Api', description='An API to retrieve predictions about the constructability of pipe systems.')
 
 
-@app.route("/")
-def hello():
-    message = "Python flask website hosted on Azure Linux app service for free! \
-        Test continous deployment (works only with public git repo)"
-    return message
+pipedesign_model = api.model(name="Pipedesign model", model=
+    {
+        "timestamp": fields.String(required=True),
+        "design_id": fields.String(required=True),
+        "pipe_segments": fields.Raw(required=False),
+        "viability": fields.Raw(required=False)
+    }
+)
 
 
-@app.route("/pipedesignml/api/predict", methods=['POST'])
-def predict():
-    data = request.get_json(force=True)
+@api.route("/pipedesignml/api/predict", methods=["post"])
+class Prediction(Resource):
+    @api.expect(pipedesign_model)
+    def post(self):
+        """This method returns a prediction on the viability of a pipedesign.
+        """
 
-    predictor = model.Model()
-    isValidJson = predictor.validate_json(data)
-    if isValidJson == False:
-        return jsonify({"Json format error": "Missing parameter"})
+        data = api.payload
+        predictor = model.Model()
+        isValidJson = predictor.validate_json(data)
+        if isValidJson == False:
+            return jsonify({"Json format error": "Missing parameter"})
 
-    prediction = predictor.predict(data)
-    return jsonify({"prediction": prediction})
+        prediction = predictor.predict(data)
+        return jsonify({"prediction": prediction})
 
 
 if __name__ == '__main__':
