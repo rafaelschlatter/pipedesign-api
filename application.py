@@ -38,7 +38,7 @@ class Prediction(Resource):
         return jsonify({"prediction": prediction, "confidence": "Not implemented yet"})
 
 
-    api.expect(pipedesign_model, validate=True)
+    @api.expect(pipedesign_model, validate=True)
     def post(self):
         """Returns predictions on the viability of a multiple pipedesigns."""
 
