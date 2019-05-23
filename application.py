@@ -6,6 +6,7 @@ from ml import model
 app = Flask(__name__)
 api = Api(app=app, version='0.1', title='Pipedesign ML Api', description='An API to retrieve predictions about the constructability of pipe systems.')
 
+ns_machinelearning = api.namespace('machinelearning', description='Namespace holding all methods related to machine learning.')
 
 pipedesign_model = api.model(name="Pipedesign model", model=
     {
@@ -17,7 +18,7 @@ pipedesign_model = api.model(name="Pipedesign model", model=
 )
 
 
-@api.route("/ml/predict", methods=["post"])
+@ns_machinelearning.route("/predict", methods=["post"])
 class Prediction(Resource):
     @api.expect(pipedesign_model)
     def post(self):
