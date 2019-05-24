@@ -1,4 +1,6 @@
 # Pipedesign-ml
+[![Build Status](https://travis-ci.org/rafaelschlatter/pipedesign-ml.svg?branch=master)](https://travis-ci.org/rafaelschlatter/pipedesign-ml)
+[![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-ml/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-ml)
 
 This is a sample python flask API that is hosted on Microsoft Azure app service (free tier). The API consists of one method, `predict()` which atm returns the length of a parameter in the json file.
 
