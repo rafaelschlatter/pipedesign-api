@@ -11,4 +11,4 @@ from ml_api.models.pipedesign_model import *
 from ml_api.models.ml_model_model import *
 
 if __name__ == '__main__':
-    server.run()
+    server.app.run(debug=True, port=8000)

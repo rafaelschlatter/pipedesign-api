@@ -13,7 +13,4 @@ class Server(object):
             contact="rafaelschlatter@gmail.com"
         )
 
-    def run(self):
-        self.app.run(debug=True)
-
 server = Server()
