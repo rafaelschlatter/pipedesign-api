@@ -1,14 +1,7 @@
-import os, sys
-from ml_api.server import server
+from flask import Flask
+from apis import api
 
+app = Flask(__name__)
+api.init_app(app)
 
-# Need to import all resources and models to register with the server
-from ml_api.resources.machine_learning import *
-from ml_api.resources.ml_model import *
-from ml_api.resources.pipedesign import * 
-
-from ml_api.models.pipedesign_model import *
-from ml_api.models.ml_model_model import *
-
-if __name__ == '__main__':
-    server.app.run(debug=True, port=8000)
+app.run(debug=True)
