@@ -26,7 +26,7 @@ The following code demonstrates usage with valid json data in python 3:
 ````python
 import requests
 
-url = "http://pipedesign.azurewebsites.net/machinelearning/predict"
+url = "http://pipedesign.azurewebsites.net/machinelearning/"
 json_data = {
     "timestamp": "2019-05-21 10:13:37.750000",
     "design_id": "0a234fea9682454facab730c0a7f83f0",
