@@ -1,9 +1,11 @@
+import os
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
 from ml import model
+from ml import preprocessor
 
 
-api = Namespace('machinelearning', description='Namespace holding all methods related to machine learning.')
+api = Namespace('prediction', description='Namespace holding all methods related to predictions.')
 
 pipedesign_model = api.model(name="Pipedesign model", model=
     {
@@ -14,19 +16,22 @@ pipedesign_model = api.model(name="Pipedesign model", model=
     }
 )
 
+# Having this in memory is bad, good enough for fast solution
+p = preprocessor.Preprocessor()
+blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=10)
+training_data = p.create_training_data(blobs)
+clf = model.Model()
+
+
 @api.route("/")
-class MachineLearning(Resource):
-    def get(self):
-        """Trains a model on pipedesign data from Azure blob storage."""
-
-        return jsonify({"Error": "Not implemented yet"})
-
-
+class Prediction(Resource):
     @api.expect(pipedesign_model, validate=True)
     def post(self):
         """Returns a prediction on the viability of a single pipedesign."""
 
-        data = api.payload
-        predictor = model.Model()
-        prediction = predictor.predict(data)
-        return jsonify({"prediction": prediction, "confidence": "Not implemented yet"})
+        prediction = clf.predict(api.payload)
+        if prediction[0] == 1:
+            verbal_pred = "Viable"
+        else:
+            verbal_pred = "Unviable"
+        return jsonify({"prediction": verbal_pred, "confidence": "Not implemented yet"})
