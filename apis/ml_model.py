@@ -6,12 +6,25 @@ api = Namespace('model', description="Namespace holding all methods related to t
 
 ml_model_model = api.model(name="Machine learning model", model=
     {
-        "Name": fields.String(required=True),
+        "name": fields.String(required=True),
         "model_type": fields.String(required=True),
         "last_trained": fields.String(required=True),
-        "test_accuracy": fields.String(required=True)
+        "test_accuracy": fields.String(required=True),
+        "isinuse": fields.Boolean(required=True)
     }
 )
+
+
+# Make this an Azure SQL database!
+ml_models_db = [
+    {
+        "Name": "Random forest",
+        "model_type": "",
+        "last_trained": "never",
+        "test_accuracy": "NaN",
+        "isinuse": True
+    }
+]
 
 
 @api.route("/")
@@ -19,7 +32,8 @@ class Model(Resource):
     def get(self):
         """Gets the current model information."""
 
-        return jsonify({"Error": "Not implemented yet"})
+        latest_model = ml_models_db[0]
+        return jsonify({"latest_model": latest_model})
 
 
     def post(self):

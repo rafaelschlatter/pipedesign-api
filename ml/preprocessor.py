@@ -24,8 +24,36 @@ class Preprocessor():
         Returns: A pandas df or numpy array (to be decided...)
         """
 
-        dataset = pd.DataFrame(pipedesign_list)
+        dataset = pd.DataFrame()
+        for pipedesign in pipedesign_list:
+            row = self.flatten_pipesegments(pipedesign)
+            dataset = dataset.append(row)
+
         return dataset
+
+
+    def flatten_pipesegments(self, pipedesign):
+        """Flattens the pipesegments dict from a pipedesign.
+        
+        Args:
+            pipedesign_json (dict):
+
+        Returns: A normalized pandas df containing one pipedesign.
+        """
+
+        pipedesign_json = pd.io.json.json_normalize(pipedesign)
+        for segment in pipedesign_json["pipe_segments"][0]:
+            for point in segment["points"]:
+                col_name_x = "segment_{0}_X_{1}".format(segment["segment_id"], point["end"])
+                col_name_y = "segment_{0}_Y_{1}".format(segment["segment_id"], point["end"])
+                col_name_z = "segment_{0}_Z_{1}".format(segment["segment_id"], point["end"])
+                pipedesign_json[col_name_x] = point["X"]
+                pipedesign_json[col_name_y] = point["Y"]
+                pipedesign_json[col_name_z] = point["Z"]
+
+        pipedesign_json.drop('pipe_segments', axis=1, inplace=True)
+        return pipedesign_json
+
 
 
     def download_blobs(self, container_name, number_of_blobs=5):
