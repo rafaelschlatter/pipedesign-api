@@ -116,6 +116,6 @@ class Preprocessor():
         try:
             self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
             return True
-        except Exception:
-            return str(traceback.format_exc())
+        except Exception as e:
+            return e
         
