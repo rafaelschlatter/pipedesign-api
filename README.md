@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/rafaelschlatter/pipedesign-ml.svg?branch=master)](https://travis-ci.org/rafaelschlatter/pipedesign-ml)
 [![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-ml/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-ml)
 
-This is a sample python flask API that is hosted on Microsoft Azure app service (free tier). The API consists of one method, `predict()` which atm returns the length of a parameter in the json file.
+This is a python flask API that is hosted on Microsoft Azure app service (free tier). The API allows to train a machine learning model and request predictions on new data. Please visit the base url at http://pipedesign.azurewebsites.net/ to see the Swagger api documentation.
 
 ## Setup
 Azure app service on linux needs a **requirements.txt** file for all dependencies except flask. A pipenv workflow probably fails (not tested).
