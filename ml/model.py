@@ -37,6 +37,8 @@ class Model():
 
         Args:
             json_data (dictionary): Input data to make a prediction.
+
+        Returns: A tuple containing the label and confidence of the prediction.
         """
 
         proc = preprocessor.Preprocessor()
