@@ -4,18 +4,10 @@ from flask_restplus import Resource, Namespace, fields
 from ml import model
 from ml import preprocessor
 from apis.cache import cache
+from apis.pipedesign import pipedesign_model
 
 
 api = Namespace('prediction', description='Namespace holding all methods related to predictions.')
-
-pipedesign_model = api.model(name="Pipedesign model", model=
-    {
-        "timestamp": fields.String(required=True),
-        "design_id": fields.String(required=True),
-        "pipe_segments": fields.List(cls_or_instance=fields.Raw, required=True),
-        "viability": fields.Raw(required=True)
-    }
-)
 
 
 @api.route("/")

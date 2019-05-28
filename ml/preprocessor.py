@@ -1,5 +1,6 @@
 import os
 import json
+import traceback
 from azure.storage.blob import BlockBlobService, PublicAccess
 import pandas as pd
 
@@ -55,7 +56,7 @@ class Preprocessor():
         return pipedesign_json
 
 
-
+    # Put all methods related to azure blob into a separate python module
     def download_blobs(self, container_name, number_of_blobs=5):
         """This method downloads json data from an Azure storage account (blobs).
 
@@ -100,4 +101,21 @@ class Preprocessor():
         except Exception as e:
             print(e)
             return None
+
+
+    def json_to_azure_blob(self, container_name, pipedesign_json):
+        """Saves a pipedesign in json format to Azure blob.
+
+        Args:
+            container_name (string): The container to store the json file in.
+            pipedesign_json (dict): The pipedesign in json format.
+
+        Returns (bool): True if saving to blob was successful, False otherwise.
+        """
+        pipedesign_string = json.dumps(pipedesign_json)
+        try:
+            self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
+            return True
+        except Exception as e:
+            return e
         
