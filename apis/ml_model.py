@@ -1,5 +1,10 @@
+import os
+import traceback
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
+from apis.cache import cache
+from ml import model
+from ml import preprocessor
 
 
 api = Namespace('model', description="Namespace holding all methods related to the model.")
@@ -15,28 +20,48 @@ ml_model_model = api.model(name="Machine learning model", model=
 )
 
 
-# Make this an Azure SQL database!
-ml_models_db = [
-    {
-        "Name": "Random forest",
-        "model_type": "",
-        "last_trained": "never",
-        "test_accuracy": "NaN",
-        "isinuse": True
-    }
-]
-
-
 @api.route("/")
 class Model(Resource):
     def get(self):
-        """Gets the current model information."""
+        """Returns information about the current trained model."""
 
-        latest_model = ml_models_db[0]
-        return jsonify({"latest_model": latest_model})
+        if "trained_model" not in cache.keys():
+            return jsonify(
+                {
+                    "Error": "Model has not been trained yet. Train model first."
+                }
+            )
+
+        if cache["trained_model"]:
+            return jsonify(
+                {
+                    "model_type": str(type(cache["trained_model"]))
+                }
+            )
 
 
-    def post(self):
-        """Updates the model (new parameters, training schedule, etc...)."""
+    def put(self):
+        """Initiates and trains a random forest model that can be used to make predictions."""
 
-        return jsonify({"Error": "Not implemented yet"})
+        p = preprocessor.Preprocessor()
+        num_blobs = 10
+        try:
+            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=num_blobs)
+        except Exception:
+            return jsonify(
+                {
+                    "Error": "Failed to connect to azure blob.",
+                    "Exception": str(traceback.format_exc())
+                }
+            )
+
+        training_data = p.create_training_data(blobs)
+        classifier = model.Model()
+        classifier.train(training_data=training_data)
+        cache["trained_model"] = classifier
+
+        return jsonify({
+            "training_result": "Success",
+            "samples_used": "{}".format(num_blobs)
+            }
+        )
