@@ -41,4 +41,6 @@ class Model():
 
         proc = preprocessor.Preprocessor()
         test_data_df = proc.flatten_pipesegments(json_data)
-        return self.classifier.predict(test_data_df[self.features])
+        label = self.classifier.predict(test_data_df[self.features])
+        confidence = self.classifier.predict_proba(test_data_df[self.features])
+        return label, confidence

@@ -1,6 +1,6 @@
 from flask_restplus import Api
 
-from .machine_learning import api as ns1
+from .prediction import api as ns1
 from .ml_model import api as ns2
 from .pipedesign import api as ns3
 
