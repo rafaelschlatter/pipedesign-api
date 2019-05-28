@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
+from apis.cache import cache
 
 
 api = Namespace('model', description="Namespace holding all methods related to the model.")
@@ -32,8 +33,9 @@ class Model(Resource):
     def get(self):
         """Gets the current model information."""
 
-        latest_model = ml_models_db[0]
-        return jsonify({"latest_model": latest_model})
+        if cache["trained_model"]:
+            here = "Yes"
+        return jsonify({"latest_model": here})
 
 
     def post(self):

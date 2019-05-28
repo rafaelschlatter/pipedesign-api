@@ -2,6 +2,7 @@ import os
 from ml import preprocessor
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
+from apis.cache import cache
 
 
 class Model():
@@ -10,13 +11,10 @@ class Model():
     """
 
     def __init__(self):
-        """Constructor. Initiates a model object an trains a model."""
-        proc = preprocessor.Preprocessor()
-        blobs = proc.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=10)
-        training_data = proc.create_training_data(blobs)
-        self.features = training_data.columns[5: ]
-        self.trained_model = self.train(training_data)
-    
+        """Constructor."""
+        self.features = None
+        self.classifier = None
+
 
     def train(self, training_data):
         """Trains a model on the given data.
@@ -24,13 +22,14 @@ class Model():
         Args:
             training_data (pandas df): A dataframe containing training data for pipedesigns (namely geometry coordinates).
 
-        Returns: A trained model (e.g from scikit-learn).
+        Returns: A trained random forest classifier.
         """
 
         y = pd.factorize(training_data["viability.viable"])[0]
         clf = RandomForestClassifier(n_jobs=2, random_state=0)
+        self.features = training_data.columns[5: ]
         clf.fit(training_data[self.features], y)
-        return clf
+        self.classifier = clf
 
 
     def predict(self, json_data):
@@ -42,4 +41,4 @@ class Model():
 
         proc = preprocessor.Preprocessor()
         test_data_df = proc.flatten_pipesegments(json_data)
-        return self.trained_model.predict(test_data_df[self.features])
+        return self.classifier.predict(test_data_df[self.features])
