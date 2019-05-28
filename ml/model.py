@@ -27,7 +27,7 @@ class Model():
 
         y = pd.factorize(training_data["viability.viable"])[0]
         clf = RandomForestClassifier(n_jobs=2, random_state=0)
-        self.features = training_data.columns[5: ]
+        self.features = training_data.columns[1:-4]
         clf.fit(training_data[self.features], y)
         self.classifier = clf
 
