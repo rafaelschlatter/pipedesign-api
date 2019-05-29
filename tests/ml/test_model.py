@@ -1,7 +1,7 @@
 import os
 import pytest
 import numpy as np
-from ml import preprocessor, model
+from src.ml import preprocessor, model
 
 
 class TestModel():

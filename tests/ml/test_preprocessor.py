@@ -2,7 +2,7 @@ import os
 import json
 import pytest
 import pandas as pd
-from ml import preprocessor
+from src.ml import preprocessor
 
 
 class TestPreprocessor():

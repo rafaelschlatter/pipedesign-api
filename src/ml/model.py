@@ -1,8 +1,8 @@
 import os
-from ml import preprocessor
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from apis.cache import cache
+from src.apis.cache import cache
+from src.ml import preprocessor
 
 
 class Model():
