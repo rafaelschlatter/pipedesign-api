@@ -1,10 +1,10 @@
 import os
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
-from ml import model
-from ml import preprocessor
-from apis.cache import cache
-from apis.pipedesign import pipedesign_model
+from src.ml import model
+from src.ml import preprocessor
+from src.apis.cache import cache
+from src.apis.pipedesign import pipedesign_model
 
 
 api = Namespace('prediction', description='Namespace holding all methods related to predictions.')

@@ -1,7 +1,7 @@
 import os
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
-from ml import preprocessor
+from src.ml import preprocessor
 
 
 api = Namespace('pipedesign', description="Namespace holding all methods related to pipedesigns.")
