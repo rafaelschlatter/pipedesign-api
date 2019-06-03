@@ -45,7 +45,7 @@ class Model(Resource):
         """Initiates and trains a random forest model that can be used to make predictions."""
 
         p = preprocessor.Preprocessor()
-        num_blobs = 10
+        num_blobs = 200
         try:
             blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=num_blobs)
         except Exception:
