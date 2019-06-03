@@ -31,6 +31,7 @@ class Prediction(Resource):
 
         return jsonify(
             {
+                "pipedesign_id": "{}".format(api.payload["design_id"]),
                 "label": "{}".format(label[0]),
                 "prediction": "{}".format(prediction),
                 "confidence": "{}".format(confidence[0][0])
