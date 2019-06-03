@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from datetime import datetime
 from sklearn.ensemble import RandomForestClassifier
 from src.apis.cache import cache
 from src.ml import preprocessor
@@ -14,6 +15,7 @@ class Model():
         """Constructor."""
         self.features = None
         self.classifier = None
+        self.last_train_time_utc = None
 
 
     def train(self, training_data):
@@ -30,6 +32,7 @@ class Model():
         self.features = training_data.columns[1:-4]
         clf.fit(training_data[self.features], y)
         self.classifier = clf
+        self.last_train_time_utc = datetime.utcnow()
 
 
     def predict(self, json_data):

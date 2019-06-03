@@ -1,6 +1,7 @@
 import os
 import pytest
 import numpy as np
+from datetime import datetime
 from src.ml import preprocessor, model
 
 
@@ -13,6 +14,7 @@ class TestModel():
         clf.train(training_data=dataset)
         assert clf.classifier
         assert str(type(clf.classifier)) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
+        assert str(type(clf.last_train_time_utc)) == "<class 'datetime.datetime'>"
 
 
     def test_predict(self):
