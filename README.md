@@ -21,25 +21,26 @@ pip install -r requirements.txt
 ````
 
 ## Usage in client application
-The following code demonstrates usage with valid json data in python 3:
+The following code demonstrates usage with valid json data in python 3. Start a terminal at the root folder and run the following code:
 
 ````python
-import requests
+import requests, json
 
 url = "http://pipedesign.azurewebsites.net/machinelearning/"
-json_data = {
-    "timestamp": "2019-05-21 10:13:37.750000",
-    "design_id": "0a234fea9682454facab730c0a7f83f0",
-    "pipe_segments": [{}, {}, {}],
-    "viability": {"viable": "true"}
-}
+with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as f:
+    json_data=json.load(f)
 
 r = requests.post(url, json=json_data)
 
 print(r.json())
 ````
 
-This should display the following response (length of the `pipe_segments` list):
+If there is a trained model available, you should get the following response:
 ````javascript
-{'prediction': 3}
+{
+    'confidence': '0.0',
+    'label': '1',
+    'pipedesign_id':'0a234fea9682454facab730c0a7f83f0',
+    'prediction': 'Viable'
+    }
 ````
