@@ -16,6 +16,7 @@ class Model():
         self.features = None
         self.classifier = None
         self.last_train_time_utc = None
+        self.samples_used = None
 
 
     def train(self, training_data):
@@ -33,6 +34,7 @@ class Model():
         clf.fit(training_data[self.features], y)
         self.classifier = clf
         self.last_train_time_utc = datetime.utcnow()
+        self.samples_used = len(training_data)
 
 
     def predict(self, json_data):

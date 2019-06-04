@@ -35,19 +35,23 @@ class Model(Resource):
         if cache["trained_model"]:
             return jsonify(
                 {
-                    "model_type": str(type(cache["trained_model"].classifier)),
-                    "last_trained": str(cache["trained_model"].last_train_time_utc)
+                    "model_type": "{}".format(str(type(cache["trained_model"].classifier))),
+                    "last_trained": "{}".format(str(cache["trained_model"].last_train_time_utc)),
+                    "samples_used": "{}".format(str(cache["trained_model"].samples_used))
                 }
             )
 
 
-    def put(self):
+@api.route("/train/<training_samples>")
+@api.param('training_samples', 'Number of samples to be used in training')
+class Training(Resource):
+    def put(self, training_samples):
         """Initiates and trains a random forest model that can be used to make predictions."""
 
+        samples = int(training_samples)
         p = preprocessor.Preprocessor()
-        num_blobs = 10
         try:
-            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=num_blobs)
+            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=samples)
         except Exception:
             return jsonify(
                 {
@@ -63,6 +67,7 @@ class Model(Resource):
 
         return jsonify({
             "training_result": "Success",
-            "samples_used": "{}".format(num_blobs)
+            "trained_model": "{}".format(str(type(classifier.classifier))),
+            "samples_used": "{}".format(len(blobs))
             }
         )
