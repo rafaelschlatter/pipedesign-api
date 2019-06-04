@@ -26,7 +26,7 @@ The following code demonstrates usage with valid json data in python 3. Start a 
 ````python
 import requests, json
 
-url = "http://pipedesign.azurewebsites.net/machinelearning/"
+url = "http://pipedesign.azurewebsites.net/prediction/"
 with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as f:
     json_data=json.load(f)
 
@@ -42,5 +42,5 @@ If there is a trained model available, you should get the following response:
     'label': '1',
     'pipedesign_id':'0a234fea9682454facab730c0a7f83f0',
     'prediction': 'Viable'
-    }
+}
 ````
