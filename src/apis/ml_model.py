@@ -41,13 +41,16 @@ class Model(Resource):
             )
 
 
-    def put(self):
+@api.route("/train/<training_samples>")
+@api.param('training_samples', 'Number of samples to be used in training')
+class Training(Resource):
+    def put(self, training_samples):
         """Initiates and trains a random forest model that can be used to make predictions."""
 
+        samples = int(training_samples)
         p = preprocessor.Preprocessor()
-        num_blobs = 200
         try:
-            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=num_blobs)
+            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=samples)
         except Exception:
             return jsonify(
                 {
@@ -63,6 +66,7 @@ class Model(Resource):
 
         return jsonify({
             "training_result": "Success",
-            "samples_used": "{}".format(num_blobs)
+            "trained_model": "{}".format(str(type(classifier.classifier))),
+            "samples_used": "{}".format(len(blobs))
             }
         )
