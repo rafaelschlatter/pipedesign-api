@@ -20,7 +20,7 @@ ml_model_model = api.model(name="Machine learning model", model=
 )
 
 
-@api.route("/")
+@api.route("/current/")
 class Model(Resource):
     def get(self):
         """Returns information about the current trained model."""
@@ -42,9 +42,17 @@ class Model(Resource):
             )
 
 
-@api.route("/train/<training_samples>")
+@api.route("/pickled/")
+class PickledModel(Resource):
+    def get(self):
+        """Returns information about the latest pickled model."""
+
+        return jsonify({"Error": "Not implemented yet"})
+
+
+@api.route("/train_current/<training_samples>")
 @api.param('training_samples', 'Number of samples to be used in training')
-class Training(Resource):
+class CurrentTraining(Resource):
     def put(self, training_samples):
         """Initiates and trains a random forest model that can be used to make predictions."""
 
@@ -71,3 +79,12 @@ class Training(Resource):
             "samples_used": "{}".format(len(blobs))
             }
         )
+
+
+@api.route("/train_pickled/<training_samples>")
+@api.param('training_samples', 'Number of samples to be used in training')
+class PickledTraining(Resource):
+    def put(self, training_samples):
+        """Trains and pickles a model that can be used to make predictions."""
+
+        return jsonify({"Error": "Not implemented yet"})
