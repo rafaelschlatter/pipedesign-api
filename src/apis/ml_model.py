@@ -35,8 +35,9 @@ class Model(Resource):
         if cache["trained_model"]:
             return jsonify(
                 {
-                    "model_type": str(type(cache["trained_model"].classifier)),
-                    "last_trained": str(cache["trained_model"].last_train_time_utc)
+                    "model_type": "{}".format(str(type(cache["trained_model"].classifier))),
+                    "last_trained": "{}".format(str(cache["trained_model"].last_train_time_utc)),
+                    "samples_used": "{}".format(str(cache["trained_model"].samples_used))
                 }
             )
 
