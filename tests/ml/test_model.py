@@ -8,7 +8,7 @@ from src.ml import preprocessor, model
 class TestModel():
     def test_train(self):
         proc = preprocessor.Preprocessor()
-        pipedesigns = proc.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=40)
+        pipedesigns = proc.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=50)
         dataset = proc.create_training_data(pipedesigns)
         clf = model.Model()
         clf.train(training_data=dataset)
@@ -19,7 +19,7 @@ class TestModel():
 
     def test_predict(self):
         proc = preprocessor.Preprocessor()
-        pipedesigns = proc.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=40)
+        pipedesigns = proc.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=50)
         dataset = proc.create_training_data(pipedesigns)
         clf = model.Model()
         clf.train(training_data=dataset)

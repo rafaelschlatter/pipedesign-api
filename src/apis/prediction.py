@@ -10,11 +10,11 @@ from src.apis.pipedesign import pipedesign_model
 api = Namespace('prediction', description='Namespace holding all methods related to predictions.')
 
 
-@api.route("/")
+@api.route("/predict_current/")
 class Prediction(Resource):
     @api.expect(pipedesign_model, validate=True)
     def post(self):
-        """Returns a prediction on the viability of a single pipedesign."""
+        """Returns a prediction on the viability of a single pipedesign using the current trained model."""
 
         if "trained_model" not in cache.keys():
             return jsonify(
@@ -37,4 +37,12 @@ class Prediction(Resource):
                 "confidence": "{}".format(confidence[0][0])
             }
         )
+
+
+@api.route("/predict_pickled/")
+class PickledPrediction(Resource):
+    @api.expect(pipedesign_model, validate=True)
+    def post(self):
+        """Returns a prediction on the viability of a single pipedesign using a pickled model."""
         
+        return jsonify({"Error": "Not implemented yet"})
