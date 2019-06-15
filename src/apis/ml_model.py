@@ -5,6 +5,7 @@ from flask_restplus import Resource, Namespace, fields
 from src.apis.cache import cache
 from src.ml import model
 from src.ml import preprocessor
+from src.infrastructure import blobhandler
 
 
 api = Namespace('model', description="Namespace holding all methods related to the model.")
@@ -57,9 +58,9 @@ class CurrentTraining(Resource):
         """Initiates and trains a random forest model that can be used to make predictions."""
 
         samples = int(training_samples)
-        p = preprocessor.Preprocessor()
+        handler = blobhandler.BlobHandler()
         try:
-            blobs = p.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=samples)
+            blobs = handler.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=samples)
         except Exception:
             return jsonify(
                 {
@@ -68,7 +69,8 @@ class CurrentTraining(Resource):
                 }
             )
 
-        training_data = p.create_training_data(blobs)
+        proc = preprocessor.Preprocessor()
+        training_data = proc.create_training_data(blobs)
         classifier = model.Model()
         classifier.train(training_data=training_data)
         cache["trained_model"] = classifier

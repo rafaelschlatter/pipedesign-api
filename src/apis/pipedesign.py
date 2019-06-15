@@ -1,7 +1,7 @@
 import os
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
-from src.ml import preprocessor
+from src.infrastructure import blobhandler
 
 
 api = Namespace('pipedesign', description="Namespace holding all methods related to pipedesigns.")
@@ -22,8 +22,8 @@ class Pipedesign(Resource):
     def get(self, pipedesign_id):
         """Returns a pipedesign in json format."""
 
-        proc = preprocessor.Preprocessor()
-        json = proc.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name=pipedesign_id)
+        handler = blobhandler.BlobHandler()
+        json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name=pipedesign_id)
 
         if json == None:
             return jsonify({"Error": "The pipedesign with the given id does not exist in Azure blob."})
@@ -36,9 +36,9 @@ class Pipedesign(Resource):
         """Stores a pipedesign as a json file to Azure blob storage."""
 
         pipedesign_json = api.payload
-        proc = preprocessor.Preprocessor()
+        handler = blobhandler.BlobHandler()
         # This overwrites the blob if it already exists.
-        is_success = proc.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
+        is_success = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
 
         if is_success == True:
             return jsonify(
