@@ -59,3 +59,8 @@ class TestBlobHandler():
         with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as json_file:
             pipedesign_json = json.load(json_file)
         return pipedesign_json
+
+
+    def _helper_create_test_model(self):
+        """Used to create a machine learning model for test purposes."""
+        pass

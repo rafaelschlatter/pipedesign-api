@@ -1,8 +1,8 @@
 from flask import Flask
 from src.apis import api
 
-app = Flask(__name__)
-api.init_app(app)
+application = Flask(__name__)
+api.init_app(application)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
