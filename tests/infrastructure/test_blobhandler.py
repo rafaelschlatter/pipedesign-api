@@ -5,7 +5,7 @@ from src.infrastructure import blobhandler
 
 
 class TestBlobHandler():
-    def test_azure_blob_to_json(self):
+    def test_azure_blob_to_json_success(self):
         handler = blobhandler.BlobHandler()
         json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")
         assert type(json) == dict
@@ -13,6 +13,10 @@ class TestBlobHandler():
         assert "design_id" in json.keys()
         assert "pipe_segments" in json.keys()
         assert "viability" in json.keys()
+
+
+    def test_azure_blob_to_json_failure(self):
+        pass
 
 
     def test_json_to_azure_blob_success(self):
@@ -35,7 +39,28 @@ class TestBlobHandler():
         assert len(blobs) == 5
 
 
+    def test_azure_blob_to_model_success(self):
+        pass
+
+
+    def test_azure_blob_to_model_failure(self):
+        pass
+
+
+    def test_model_to_azure_blob_success(self):
+        pass
+
+
+    def test_model_to_azure_blob_failure(self):
+        pass
+
+
     def _helper_load_json(self):
         with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as json_file:
             pipedesign_json = json.load(json_file)
         return pipedesign_json
+
+
+    def _helper_create_test_model(self):
+        """Used to create a machine learning model for test purposes."""
+        pass

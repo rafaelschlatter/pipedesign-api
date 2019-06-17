@@ -1,6 +1,8 @@
 import os
 import json
 from azure.storage.blob import BlockBlobService, PublicAccess
+import pickle
+import uuid
 
 
 class BlobHandler():
@@ -10,7 +12,8 @@ class BlobHandler():
         """Constructor."""
 
         self.block_blob_service = BlockBlobService(account_name=os.environ["STORAGE_ACC_NAME"], account_key=os.environ["BLOB_KEY1"])
-        self.container_name = os.environ["CONTAINER_NAME_DATA"]
+        self.container_name_data = os.environ["CONTAINER_NAME_DATA"]
+        self.container_name_models = os.environ["CONTAINER_NAME_MODELS"]
     
 
     def download_blobs(self, container_name, number_of_blobs=5):
@@ -41,7 +44,7 @@ class BlobHandler():
             return None
 
 
-    def azure_blob_to_json(self, container_name, blob_name):
+    def azure_blob_to_json(self, blob_name, container_name):
         """Downloads a blob from an Azure storage account and transfers the content to json.
 
         Args:
@@ -59,7 +62,7 @@ class BlobHandler():
             return None
 
 
-    def json_to_azure_blob(self, container_name, pipedesign_json):
+    def json_to_azure_blob(self, pipedesign_json, container_name):
         """Saves a pipedesign in json format to Azure blob.
 
         Args:
@@ -68,10 +71,45 @@ class BlobHandler():
 
         Returns (bool): True if saving to blob was successful, False otherwise.
         """
+
         pipedesign_string = json.dumps(pipedesign_json)
         try:
             self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
             return True
         except Exception as e:
             return e
+
+
+    def azure_blob_to_model(self, model_id, container_name):
+        """Retrieved a pickled model from Azure blob storage.
+
+        Args:
+            model_id (string): The identifier of the machine learning model.
+            container_name (string): The name of the Azure blob container.
         
+        Returns: A machine learning model that can be used to retrieve predictions.
+        """
+
+        try:
+            model = self.block_blob_service.get_blob_to_bytes(container_name=container_name, blob_name=model_id)
+            return pickle.loads(model)
+        except Exception as e:
+            return None
+
+
+    def model_to_azure_blob(self, model, container_name):
+        """Pickles and saves a model to Azure blob storage.
+
+        Args:
+            container_name (string): The name of Azure blob container.
+            pickled_model: Machine learning model in pickle format.
+
+        Returns (bool): Ture if saving to blob was successful, False otherwise. 
+        """
+
+        model_bytes = pickle.dumps(model)
+        try:
+            self.block_blob_service.create_blob_from_bytes(container_name=container_name, blob_name=uuid.uuid4().hex, blob=model_bytes)
+            return True
+        except Exception as e:
+            return e
