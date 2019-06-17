@@ -1,6 +1,8 @@
 import os
 import json
 import pytest
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
 from src.infrastructure import blobhandler
 
 
@@ -16,7 +18,9 @@ class TestBlobHandler():
 
 
     def test_azure_blob_to_json_failure(self):
-        pass
+        handler = blobhandler.BlobHandler()
+        json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="non_existant_blob_name")
+        assert json == None
 
 
     def test_json_to_azure_blob_success(self):
@@ -40,19 +44,33 @@ class TestBlobHandler():
 
 
     def test_azure_blob_to_model_success(self):
-        pass
+        handler = blobhandler.BlobHandler()
+        model = handler.azure_blob_to_model(model_id="test_model_do_not_delete",
+            container_name=os.environ["CONTAINER_NAME_MODELS"])
+        assert str(type(model)) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
+        assert model.n_features_ == 4
 
 
     def test_azure_blob_to_model_failure(self):
-        pass
-
+        handler = blobhandler.BlobHandler()
+        model = handler.azure_blob_to_model(model_id="non_existant_model_id",
+            container_name=os.environ["CONTAINER_NAME_MODELS"])
+        assert str(type(model)) == "<class 'azure.common.AzureMissingResourceHttpError'>"
+        
 
     def test_model_to_azure_blob_success(self):
-        pass
+        model = self._helper_create_test_model()
+        handler = blobhandler.BlobHandler()
+        is_success = handler.model_to_azure_blob(model=model, container_name=os.environ["CONTAINER_NAME_MODELS"],
+            blob_name="test_model_do_not_delete")
+        assert is_success == True
 
 
     def test_model_to_azure_blob_failure(self):
-        pass
+        model = self._helper_create_test_model()
+        handler = blobhandler.BlobHandler()
+        is_success = handler.model_to_azure_blob(model=model, container_name="non_existant_container")
+        assert str(type(is_success)) == "<class 'azure.common.AzureHttpError'>"
 
 
     def _helper_load_json(self):
@@ -63,4 +81,9 @@ class TestBlobHandler():
 
     def _helper_create_test_model(self):
         """Used to create a machine learning model for test purposes."""
-        pass
+        X, y = make_classification(n_samples=1000, n_features=4,
+            n_informative=2,n_redundant=0,
+            random_state=0, shuffle=False)
+        clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+        clf.fit(X, y)
+        return clf
