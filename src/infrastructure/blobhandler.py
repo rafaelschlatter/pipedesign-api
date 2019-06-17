@@ -92,12 +92,12 @@ class BlobHandler():
 
         try:
             model = self.block_blob_service.get_blob_to_bytes(container_name=container_name, blob_name=model_id)
-            return pickle.loads(model)
+            return pickle.loads(model.content)
         except Exception as e:
-            return None
+            return e
 
 
-    def model_to_azure_blob(self, model, container_name):
+    def model_to_azure_blob(self, model, container_name, blob_name=uuid.uuid4().hex):
         """Pickles and saves a model to Azure blob storage.
 
         Args:
@@ -109,7 +109,7 @@ class BlobHandler():
 
         model_bytes = pickle.dumps(model)
         try:
-            self.block_blob_service.create_blob_from_bytes(container_name=container_name, blob_name=uuid.uuid4().hex, blob=model_bytes)
+            self.block_blob_service.create_blob_from_bytes(container_name=container_name, blob_name=blob_name, blob=model_bytes)
             return True
         except Exception as e:
             return e
