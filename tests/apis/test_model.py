@@ -1,6 +1,6 @@
 import pytest
 import json
-from application import application
+from application import app
 
 
 class TestModel():
