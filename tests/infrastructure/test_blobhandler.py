@@ -47,14 +47,16 @@ class TestBlobHandler():
         handler = blobhandler.BlobHandler()
         model = handler.azure_blob_to_model(model_id="test_model_1_do_not_delete",
             container_name=os.environ["CONTAINER_NAME_MODELS"])
-        assert str(type(model)) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
+        assert model[0] == True
+        assert str(type(model[1])) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
 
 
     def test_azure_blob_to_model_failure(self):
         handler = blobhandler.BlobHandler()
         model = handler.azure_blob_to_model(model_id="non_existant_model_id",
             container_name=os.environ["CONTAINER_NAME_MODELS"])
-        assert model == None
+        assert model[0] == False
+        assert str(type(model[1])) == "<class 'azure.common.AzureMissingResourceHttpError'>"
         
 
     def test_model_to_azure_blob_success(self):

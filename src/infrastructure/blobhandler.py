@@ -92,9 +92,9 @@ class BlobHandler():
 
         try:
             model = self.block_blob_service.get_blob_to_bytes(container_name=container_name, blob_name=model_id)
-            return pickle.loads(model.content)
-        except Exception:
-            return None
+            return (True, pickle.loads(model.content))
+        except Exception as e:
+            return (False, e)
 
 
     def model_to_azure_blob(self, model, container_name, blob_name=uuid.uuid4().hex):
