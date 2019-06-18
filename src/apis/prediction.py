@@ -45,4 +45,29 @@ class PickledPrediction(Resource):
     def post(self):
         """Returns a prediction on the viability of a single pipedesign using a pickled model."""
         
-        return jsonify({"Error": "Not implemented yet"})
+        if "pickled_model" not in cache.keys():
+            return jsonify(
+                {
+                    "Error": "No pickled model is activated yet. Activate model first."
+                }
+            )
+
+        proc = preprocessor.Preprocessor()
+        pipedesign_sample = proc.flatten_pipesegments(api.payload)
+        features = pipedesign_model.columns[1:-4]
+        label = cache["pickled_model"].predict(pipedesign_sample[features])
+        confidence = cache["pickled_model"].predict_proba(pipedesign_sample[features])
+
+        if label[0] == 1:
+            prediction = "Viable"
+        if label[0] == 0:
+            prediction = "Unviable"
+
+        return jsonify(
+            {
+                "pipedesign_id": "{}".format(api.payload["design_id"]),
+                "label": "{}".format(label[0]),
+                "prediction": "{}".format(prediction),
+                "confidence": "{}".format(confidence[0][0])
+            }
+        )

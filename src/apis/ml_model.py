@@ -83,10 +83,28 @@ class CurrentTraining(Resource):
         )
 
 
-@api.route("/train_pickled/<training_samples>")
-@api.param('training_samples', 'Number of samples to be used in training')
+@api.route("/activate_pickled/<model_id>/")
+@api.param("model_id", "The Id (blob name) of the model.")
 class PickledTraining(Resource):
-    def put(self, training_samples):
-        """Trains and pickles a model that can be used to make predictions."""
+    def put(self, model_id):
+        """Activates a pickled model from Azure blob storage that can be used to make predictions."""
 
-        return jsonify({"Error": "Not implemented yet"})
+        handler = blobhandler.BlobHandler()
+        model = handler.azure_blob_to_model(model_id=model_id, container_name=os.environ["CONTAINER_NAME_MODELS"])
+
+        if model[0] == True:
+            cache["pickled_model"] = model
+            return jsonify(
+                {
+                    "activation_result": "Success",
+                    "activated_model": "{}".format(str(type(model[1]))),
+                }
+            )
+
+        else:
+            return jsonify(
+                {
+                    "Error": "Failed to download model from Azure blob.",
+                    "Exception": str(model[1])
+                }
+            )
