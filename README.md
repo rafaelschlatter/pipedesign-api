@@ -1,5 +1,5 @@
 # Pipedesign-api
-[![Build Status](https://travis-ci.org/rafaelschlatter/pipedesign-ml.svg?branch=master)](https://travis-ci.org/rafaelschlatter/pipedesign-ml)
+[![Build Status](https://travis-ci.org/rafaelschlatter/pipedesign-api.svg?branch=master)](https://travis-ci.org/rafaelschlatter/pipedesign-api)
 [![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-ml/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-ml)
 
 This is a python flask API that is hosted on Microsoft Azure app service. The API allows to train a machine learning model and request predictions on new data. Please visit the base url at http://pipedesign.azurewebsites.net/ to see the Swagger api documentation.
