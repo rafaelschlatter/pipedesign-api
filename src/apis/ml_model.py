@@ -90,6 +90,7 @@ class PickledTraining(Resource):
         """Activates a pickled model from Azure blob storage that can be used to make predictions."""
 
         handler = blobhandler.BlobHandler()
+
         model = handler.azure_blob_to_model(model_id= model_id, container_name=os.environ["CONTAINER_NAME_MODELS"])
         if model == None:
             return jsonify(
