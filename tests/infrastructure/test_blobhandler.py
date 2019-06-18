@@ -48,7 +48,6 @@ class TestBlobHandler():
         model = handler.azure_blob_to_model(model_id="test_model_1_do_not_delete",
             container_name=os.environ["CONTAINER_NAME_MODELS"])
         assert str(type(model)) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
-        assert model.n_features_ == 54
 
 
     def test_azure_blob_to_model_failure(self):
