@@ -43,12 +43,11 @@ class TestBlobHandler():
         assert len(blobs) == 5
 
 
-    #@pytest.mark.skip(reason="Fails on travis CI, works locally.")
     def test_azure_blob_to_model_success(self):
         handler = blobhandler.BlobHandler()
         model = handler.azure_blob_to_model(model_id="test_model_1_do_not_delete",
             container_name=os.environ["CONTAINER_NAME_MODELS"])
-        assert str(type(model[1])) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
+        assert str(type(model[1])) == "<class 'sklearn.naive_bayes.GaussianNB'>"
         assert model[0] == True
 
 
