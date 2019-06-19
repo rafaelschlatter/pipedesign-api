@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import pytest
 from src.infrastructure import blobhandler
 from src.ml import preprocessor
 

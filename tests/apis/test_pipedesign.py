@@ -1,7 +1,3 @@
-import pytest
-from application import app
-
-
 class TestPipedesign():
     def test_get_pipedesign_with_valid_id(self, client):
         resp = client.get("/pipedesign/test_blob_do_not_delete")

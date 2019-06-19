@@ -1,8 +1,6 @@
-import os
 import pandas as pd
 from datetime import datetime
 from sklearn.ensemble import RandomForestClassifier
-from src.apis.cache import cache
 from src.ml import preprocessor
 
 

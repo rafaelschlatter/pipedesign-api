@@ -1,6 +1,6 @@
 import os
 import json
-from azure.storage.blob import BlockBlobService, PublicAccess
+from azure.storage.blob import BlockBlobService
 import pickle
 import uuid
 
@@ -86,7 +86,7 @@ class BlobHandler():
         Args:
             model_id (string): The identifier of the machine learning model.
             container_name (string): The name of the Azure blob container.
-        
+
         Returns: A machine learning model that can be used to retrieve predictions.
         """
 

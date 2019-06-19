@@ -1,7 +1,4 @@
 import os
-import pytest
-import numpy as np
-from datetime import datetime
 from src.ml import preprocessor, model
 from src.infrastructure import blobhandler
 

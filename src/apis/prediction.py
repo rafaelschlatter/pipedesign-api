@@ -1,7 +1,5 @@
-import os
 from flask import jsonify
-from flask_restplus import Resource, Namespace, fields
-from src.ml import model
+from flask_restplus import Resource, Namespace
 from src.ml import preprocessor
 from src.apis.cache import cache
 from src.apis.pipedesign import pipedesign_model

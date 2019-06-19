@@ -1,6 +1,4 @@
-import pytest
 import json
-from application import app
 
 
 class TestPrediction():
