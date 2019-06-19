@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-ml/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-ml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6f28fe09f64e4eaaa866498be841fa84)](https://app.codacy.com/app/rafaelschlatter/pipedesign-api?utm_source=github.com&utm_medium=referral&utm_content=rafaelschlatter/pipedesign-api&utm_campaign=Badge_Grade_Settings)
 
-This is a python flask API that is hosted on Microsoft Azure app service. The API allows to train a machine learning model and request predictions on new data. Please visit the base url at http://pipedesign.azurewebsites.net/ to see the Swagger api documentation.
+This is a python flask API that is hosted on Microsoft Azure app service. The API allows to train a machine learning model and request predictions on new data. Please visit the base url at <http://pipedesign.azurewebsites.net> to see the Swagger api documentation.
 
 ## Setup
 Azure app service on linux needs a **requirements.txt** file for all dependencies except flask. A pipenv workflow probably fails (not tested).
