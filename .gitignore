@@ -3,6 +3,7 @@
 *.env
 *.vscode
 *.log
+.pytest_cache
 .ipynb_checkpoints
 pipedesign-ml
 notebooks

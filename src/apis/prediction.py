@@ -1,6 +1,7 @@
 from flask import jsonify
 from flask_restplus import Resource, Namespace
 from src.ml import preprocessor
+from src.ml.features import pipe_features
 from src.apis.cache import cache
 from src.apis.pipedesign import pipedesign_model
 
@@ -41,7 +42,7 @@ class Prediction(Resource):
 class PickledPrediction(Resource):
     @api.expect(pipedesign_model, validate=True)
     def post(self):
-        """Returns a prediction on the viability of a single pipedesign using a pickled model."""
+        """Returns a prediction on the viability of a single pipedesign using the activated pickled model."""
         
         if "pickled_model" not in cache.keys():
             return jsonify(
@@ -52,9 +53,8 @@ class PickledPrediction(Resource):
 
         proc = preprocessor.Preprocessor()
         pipedesign_sample = proc.flatten_pipesegments(api.payload)
-        features = pipedesign_model.columns[1:-4]
-        label = cache["pickled_model"].predict(pipedesign_sample[features])
-        confidence = cache["pickled_model"].predict_proba(pipedesign_sample[features])
+        label = cache["pickled_model"][1].predict(pipedesign_sample[pipe_features])
+        confidence = cache["pickled_model"][1].predict_proba(pipedesign_sample[pipe_features])
 
         if label[0] == 1:
             prediction = "Viable"
