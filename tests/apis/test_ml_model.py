@@ -15,7 +15,7 @@ class TestMLModel():
     def test_model_train_current_success(self, client):
         resp = client.put("/model/train_current/50")
         assert resp.status_code == 200
-        assert resp.json["training_result"] == "Success"
+        assert resp.json["training_result"] == "Successfully trained model"
 
 
     def test_model_train_current_with_invalid_parameter(self, client):
@@ -26,7 +26,7 @@ class TestMLModel():
     def test_model_activate_pickled_success(self, client):
         resp = client.put("/model/activate_pickled/test_model_1_do_not_delete/")
         assert resp.status_code == 200
-        assert resp.json["activation_result"] == "Success"
+        assert resp.json["training_result"] == "Successfully activated model"
 
 
     def test_model_activate_pickled_failure(self, client):

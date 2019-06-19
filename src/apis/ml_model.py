@@ -10,16 +10,6 @@ from src.infrastructure import blobhandler
 
 api = Namespace('model', description="Namespace holding all methods related to the model.")
 
-ml_model_model = api.model(name="Machine learning model", model=
-    {
-        "name": fields.String(required=True),
-        "model_type": fields.String(required=True),
-        "last_trained": fields.String(required=True),
-        "test_accuracy": fields.String(required=True),
-        "isinuse": fields.Boolean(required=True)
-    }
-)
-
 
 @api.route("/current/")
 class Model(Resource):
@@ -76,7 +66,7 @@ class CurrentTraining(Resource):
         cache["trained_model"] = classifier
 
         return jsonify({
-            "training_result": "Success",
+            "training_result": "Successfully trained model",
             "trained_model": "{}".format(str(type(classifier.classifier))),
             "samples_used": "{}".format(len(blobs))
             }
@@ -96,8 +86,9 @@ class PickledTraining(Resource):
             cache["pickled_model"] = model
             return jsonify(
                 {
-                    "activation_result": "Success",
-                    "activated_model": "{}".format(str(type(model[1]))),
+                    "training_result": "Successfully activated model",
+                    "trained_model": "{}".format(str(type(model[1]))),
+                    "samples_used": "unknown"
                 }
             )
 
