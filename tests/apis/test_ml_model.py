@@ -28,7 +28,6 @@ class TestMLModel():
         assert resp.status_code == 500
 
 
-    @pytest.mark.skip(reason="Fails on travis CI, works locally.")
     def test_model_activate_pickled_success(self, client):
         resp = client.put("/model/activate_pickled/test_model_1_do_not_delete/")
         assert resp.status_code == 200
