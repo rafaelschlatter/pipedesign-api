@@ -37,7 +37,7 @@ class TestBlobHandler():
         is_success = handler.json_to_azure_blob(container_name="invalid_container_name", pipedesign_json=pipedesign_json)
         assert isinstance(is_success, AzureHttpError)
 
-    
+
     def test_download_blobs(self):
         handler = blobhandler.BlobHandler()
         blobs = handler.download_blobs(container_name=os.environ["CONTAINER_NAME_DATA"], number_of_blobs=5)

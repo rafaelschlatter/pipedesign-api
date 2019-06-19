@@ -14,7 +14,7 @@ class BlobHandler():
         self.block_blob_service = BlockBlobService(account_name=os.environ["STORAGE_ACC_NAME"], account_key=os.environ["BLOB_KEY1"])
         self.container_name_data = os.environ["CONTAINER_NAME_DATA"]
         self.container_name_models = os.environ["CONTAINER_NAME_MODELS"]
-    
+
 
     def download_blobs(self, container_name, number_of_blobs=5):
         """This method downloads json data from an Azure storage account (blobs).

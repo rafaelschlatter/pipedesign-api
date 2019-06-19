@@ -30,7 +30,7 @@ class Preprocessor():
 
     def flatten_pipesegments(self, pipedesign):
         """Flattens the pipesegments dict from a pipedesign.
-        
+
         Args:
             pipedesign_json (dict):
 
