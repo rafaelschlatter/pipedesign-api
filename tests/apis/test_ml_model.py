@@ -1,8 +1,3 @@
-import pytest
-import json
-from application import app
-
-
 class TestMLModel():
     def test_model_get_current_model_not_trained(self, client):
         resp = client.get("/model/current/")

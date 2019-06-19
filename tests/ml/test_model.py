@@ -1,7 +1,6 @@
 import os
-import pytest
-import numpy as np
 from datetime import datetime
+from sklearn.ensemble import RandomForestClassifier
 from src.ml import preprocessor, model
 from src.infrastructure import blobhandler
 
@@ -15,8 +14,8 @@ class TestModel():
         clf = model.Model()
         clf.train(training_data=dataset)
         assert clf.classifier
-        assert str(type(clf.classifier)) == "<class 'sklearn.ensemble.forest.RandomForestClassifier'>"
-        assert str(type(clf.last_train_time_utc)) == "<class 'datetime.datetime'>"
+        assert isinstance(clf.classifier, RandomForestClassifier)
+        assert isinstance(clf.last_train_time_utc, datetime)
 
 
     def test_predict(self):

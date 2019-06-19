@@ -1,6 +1,6 @@
 import os
 import json
-from azure.storage.blob import BlockBlobService, PublicAccess
+from azure.storage.blob import BlockBlobService
 import pickle
 import uuid
 
@@ -14,7 +14,7 @@ class BlobHandler():
         self.block_blob_service = BlockBlobService(account_name=os.environ["STORAGE_ACC_NAME"], account_key=os.environ["BLOB_KEY1"])
         self.container_name_data = os.environ["CONTAINER_NAME_DATA"]
         self.container_name_models = os.environ["CONTAINER_NAME_MODELS"]
-    
+
 
     def download_blobs(self, container_name, number_of_blobs=5):
         """This method downloads json data from an Azure storage account (blobs).
@@ -86,7 +86,7 @@ class BlobHandler():
         Args:
             model_id (string): The identifier of the machine learning model.
             container_name (string): The name of the Azure blob container.
-        
+
         Returns: A machine learning model that can be used to retrieve predictions.
         """
 
