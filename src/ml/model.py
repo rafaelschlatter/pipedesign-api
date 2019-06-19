@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 from sklearn.ensemble import RandomForestClassifier
 from src.ml import preprocessor
+from src.ml.features import pipe_features
 
 
 class Model():
@@ -11,7 +12,7 @@ class Model():
 
     def __init__(self):
         """Constructor."""
-        self.features = None
+        self.features = pipe_features
         self.classifier = None
         self.last_train_time_utc = None
         self.samples_used = None
@@ -28,7 +29,6 @@ class Model():
 
         y = pd.factorize(training_data["viability.viable"])[0]
         clf = RandomForestClassifier(n_jobs=2, random_state=0)
-        self.features = training_data.columns[1:-4]
         clf.fit(training_data[self.features], y)
         self.classifier = clf
         self.last_train_time_utc = datetime.utcnow()

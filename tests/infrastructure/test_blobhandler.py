@@ -1,10 +1,9 @@
 import os
 import json
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.datasets import make_classification
 from azure.common import AzureMissingResourceHttpError, AzureHttpError
 from src.infrastructure import blobhandler
+from tests.helper_functions import HelperFunctions
 
 
 class TestBlobHandler():
@@ -26,14 +25,14 @@ class TestBlobHandler():
 
     def test_json_to_azure_blob_success(self):
         handler = blobhandler.BlobHandler()
-        pipedesign_json = self._helper_load_json()
+        pipedesign_json = HelperFunctions._load_json()
         is_success = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
         assert is_success == True
 
     
     def test_json_to_azure_blob_failure(self):
         handler = blobhandler.BlobHandler()
-        pipedesign_json = self._helper_load_json()
+        pipedesign_json = HelperFunctions._load_json()
         is_success = handler.json_to_azure_blob(container_name="invalid_container_name", pipedesign_json=pipedesign_json)
         assert isinstance(is_success, AzureHttpError)
 
@@ -61,7 +60,7 @@ class TestBlobHandler():
 
 
     def test_model_to_azure_blob_success(self):
-        model = self._helper_create_test_model()
+        model = HelperFunctions._create_test_model()
         handler = blobhandler.BlobHandler()
         is_success = handler.model_to_azure_blob(model=model, container_name=os.environ["CONTAINER_NAME_MODELS"],
             blob_name="test_model_2_do_not_delete")
@@ -69,23 +68,7 @@ class TestBlobHandler():
 
 
     def test_model_to_azure_blob_failure(self):
-        model = self._helper_create_test_model()
+        model = HelperFunctions._create_test_model()
         handler = blobhandler.BlobHandler()
         is_success = handler.model_to_azure_blob(model=model, container_name="non_existant_container")
         assert isinstance(is_success, AzureHttpError)
-
-
-    def _helper_load_json(self):
-        with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as json_file:
-            pipedesign_json = json.load(json_file)
-        return pipedesign_json
-
-
-    def _helper_create_test_model(self):
-        """Used to create a machine learning model for test purposes."""
-        X, y = make_classification(n_samples=1000, n_features=4,
-            n_informative=2,n_redundant=0,
-            random_state=0, shuffle=False)
-        clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
-        clf.fit(X, y)
-        return clf
