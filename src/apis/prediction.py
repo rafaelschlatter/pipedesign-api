@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_restplus import Resource, Namespace
+from flask_restplus import abort
 from src.ml import preprocessor
 from src.ml.features import pipe_features
 from src.apis.cache import cache
@@ -16,11 +17,8 @@ class Prediction(Resource):
         """Returns a prediction on the viability of a single pipedesign using the current trained model."""
 
         if "trained_model" not in cache.keys():
-            return jsonify(
-                {
-                    "Error": "Model has not been trained yet. Train model first."
-                }
-            )
+            message = "Model has not been trained yet. Train model first."
+            abort(405, custom=message)
 
         label, confidence = cache["trained_model"].predict(api.payload)
         if label[0] == 1:
@@ -45,16 +43,13 @@ class PickledPrediction(Resource):
         """Returns a prediction on the viability of a single pipedesign using the activated pickled model."""
         
         if "pickled_model" not in cache.keys():
-            return jsonify(
-                {
-                    "Error": "No pickled model is activated yet. Activate model first."
-                }
-            )
+            message = "No pickled model is activated yet. Activate model first."
+            abort(405, custom=message)
 
         proc = preprocessor.Preprocessor()
         pipedesign_sample = proc.flatten_pipesegments(api.payload)
-        label = cache["pickled_model"][1].predict(pipedesign_sample[pipe_features])
-        confidence = cache["pickled_model"][1].predict_proba(pipedesign_sample[pipe_features])
+        label = cache["pickled_model"].predict(pipedesign_sample[pipe_features])
+        confidence = cache["pickled_model"].predict_proba(pipedesign_sample[pipe_features])
 
         if label[0] == 1:
             prediction = "Viable"

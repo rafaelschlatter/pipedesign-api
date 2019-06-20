@@ -1,8 +1,7 @@
 class TestMLModel():
     def test_model_get_current_model_not_trained(self, client):
         resp = client.get("/model/current/")
-        assert resp.status_code == 200
-        assert resp.json["Error"] == "Model has not been trained yet. Train model first."
+        assert resp.status_code == 404
 
 
     def test_model_get_current_model_success(self, client):
@@ -31,5 +30,4 @@ class TestMLModel():
 
     def test_model_activate_pickled_failure(self, client):
         resp = client.put("/model/activate_pickled/non_existant_model_id/")
-        assert resp.status_code == 200
-        assert resp.json["Error"] == "Failed to download model from Azure blob."
+        assert resp.status_code == 500

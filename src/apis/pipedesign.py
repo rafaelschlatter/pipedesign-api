@@ -1,7 +1,7 @@
 import os
-from flask import abort
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
+from flask_restplus import abort
 from src.infrastructure import blobhandler
 
 
@@ -28,7 +28,7 @@ class Pipedesign(Resource):
 
         if result[0] == False:
             message = "The pipedesign with the given id does not exist in Azure blob."
-            abort(404, message)
+            abort(404, custom=message)
         else:
             return jsonify(result[1])
 
@@ -39,11 +39,11 @@ class Pipedesign(Resource):
 
         pipedesign_json = api.payload
         handler = blobhandler.BlobHandler()
-        is_success = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
+        result = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
 
-        if is_success[0] == False:
-            return jsonify({"Error": "{}".format(str(is_success))})
-            
+        if result[0] == False:
+            message = str(result[1])
+            abort(503, custom=message)
         else:
             return jsonify(
                 {
