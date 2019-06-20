@@ -51,7 +51,7 @@ class PickledModel(Resource):
 
 
 
-@api.route("/train_current/<training_samples>")
+@api.route("/train_current/<training_samples>/")
 @api.param('training_samples', 'Number of samples to be used in training')
 class CurrentTraining(Resource):
     def put(self, training_samples):
