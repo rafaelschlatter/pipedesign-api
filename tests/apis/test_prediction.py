@@ -1,4 +1,3 @@
-import json
 from tests.helper_functions import HelperFunctions
 
 

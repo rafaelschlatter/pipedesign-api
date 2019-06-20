@@ -1,5 +1,4 @@
 import os
-import json
 from sklearn.naive_bayes import GaussianNB
 from azure.common import AzureMissingResourceHttpError, AzureHttpError
 from src.infrastructure import blobhandler

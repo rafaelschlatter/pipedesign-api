@@ -1,7 +1,7 @@
 import os
 import traceback
 from flask import jsonify
-from flask_restplus import Resource, Namespace, fields
+from flask_restplus import Resource, Namespace
 from src.apis.cache import cache
 from src.ml import model
 from src.ml import preprocessor
