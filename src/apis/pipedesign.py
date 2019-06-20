@@ -1,6 +1,7 @@
 import os
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
+from flask_restplus import abort
 from src.infrastructure import blobhandler
 
 
@@ -23,12 +24,13 @@ class Pipedesign(Resource):
         """Returns a pipedesign in json format."""
 
         handler = blobhandler.BlobHandler()
-        json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name=pipedesign_id)
+        result = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name=pipedesign_id)
 
-        if json == None:
-            return jsonify({"Error": "The pipedesign with the given id does not exist in Azure blob."})
+        if result[0] == False:
+            message = "The pipedesign with the given id does not exist in Azure blob."
+            abort(404, custom=message)
         else:
-            return jsonify(json)
+            return jsonify(result[1])
 
 
     @api.expect(pipedesign_model, validate=True)
@@ -37,10 +39,12 @@ class Pipedesign(Resource):
 
         pipedesign_json = api.payload
         handler = blobhandler.BlobHandler()
-        # This overwrites the blob if it already exists.
-        is_success = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
+        result = handler.json_to_azure_blob(container_name=os.environ["CONTAINER_NAME_DATA"], pipedesign_json=pipedesign_json)
 
-        if is_success == True:
+        if result[0] == False:
+            message = str(result[1])
+            abort(503, custom=message)
+        else:
             return jsonify(
                 {
                     "message": "Pipedesign saved successfully",
@@ -48,6 +52,3 @@ class Pipedesign(Resource):
                     "blobname": "{}".format(pipedesign_json["design_id"])
                 }
             )
-
-        else:
-            return jsonify({"Error": "{}".format(str(is_success))})

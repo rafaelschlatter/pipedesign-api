@@ -26,7 +26,7 @@ class TestModel():
         clf = model.Model()
         clf.train(training_data=dataset)
 
-        test_data = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")
+        test_data = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")[1]
         label, confidence = clf.predict(json_data=test_data)
         # TODO: This depends on the currently trained model, think of a fix here.
         assert (label[0] == 0 or label[0] == 1)

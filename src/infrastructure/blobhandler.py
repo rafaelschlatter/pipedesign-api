@@ -32,9 +32,9 @@ class BlobHandler():
 
         pipedesign_list = []
         for blob in blob_generator:
-            pipedesign_dict = self.azure_blob_to_json(container_name=container_name, blob_name=blob.name)
-            if pipedesign_dict is not None:
-                pipedesign_list.append(pipedesign_dict)
+            result = self.azure_blob_to_json(container_name=container_name, blob_name=blob.name)
+            if result[0] == True:
+                pipedesign_list.append(result[1])
             else:
                 continue
 
@@ -56,14 +56,14 @@ class BlobHandler():
 
         try:
             pipedesign_txt = self.block_blob_service.get_blob_to_text(container_name=container_name, blob_name=blob_name)
-            return json.loads(pipedesign_txt.content)
+            return (True, json.loads(pipedesign_txt.content))
         except Exception as e:
             print(e)
-            return None
+            return (False, e)
 
 
     def json_to_azure_blob(self, pipedesign_json, container_name):
-        """Saves a pipedesign in json format to Azure blob.
+        """Saves a pipedesign in json format to Azure blob. Overwrites the blob if it already exists.
 
         Args:
             container_name (string): The container to store the json file in.
@@ -75,9 +75,9 @@ class BlobHandler():
         pipedesign_string = json.dumps(pipedesign_json)
         try:
             self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
-            return True
+            return (True, )
         except Exception as e:
-            return e
+            return (False, e)
 
 
     def azure_blob_to_model(self, model_id, container_name):
@@ -110,6 +110,6 @@ class BlobHandler():
         model_bytes = pickle.dumps(model)
         try:
             self.block_blob_service.create_blob_from_bytes(container_name=container_name, blob_name=blob_name, blob=model_bytes)
-            return True
+            return (True, )
         except Exception as e:
-            return e
+            return (False, e)

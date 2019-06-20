@@ -15,7 +15,7 @@ class TestPreprocessor():
 
     def test_flatten_pipesegments(self):
         handler = blobhandler.BlobHandler()
-        json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")
+        json = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")[1]
         proc = preprocessor.Preprocessor()
         pipedesign_sample = proc.flatten_pipesegments(json)
         assert isinstance(pipedesign_sample, pd.DataFrame)
