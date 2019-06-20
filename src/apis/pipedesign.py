@@ -20,6 +20,8 @@ pipedesign_model = api.model(name="Pipedesign model", model=
 @api.route("/<pipedesign_id>")
 @api.param('pipedesign_id', 'Alphanumeric id of pipedesign')
 class Pipedesign(Resource):
+    @api.response(200, 'Success', pipedesign_model)
+    @api.response(404, "Not found")
     def get(self, pipedesign_id):
         """Returns a pipedesign in json format."""
 
@@ -34,6 +36,8 @@ class Pipedesign(Resource):
 
 
     @api.expect(pipedesign_model, validate=True)
+    @api.response(200, 'Success')
+    @api.response(503, "Service unavailable")
     def post(self, pipedesign_id):
         """Stores a pipedesign as a json file to Azure blob storage."""
 

@@ -1,5 +1,5 @@
 from flask import jsonify
-from flask_restplus import Resource, Namespace
+from flask_restplus import Resource, Namespace, fields
 from flask_restplus import abort
 from src.ml import preprocessor
 from src.ml.features import pipe_features
@@ -9,10 +9,21 @@ from src.apis.pipedesign import pipedesign_model
 
 api = Namespace('prediction', description='Namespace holding all methods related to predictions.')
 
+prediction_schema = api.model(name="Prediction schema", model=
+    {
+        "pipedesign_id": fields.String(required=True),
+        "label": fields.String(required=True),
+        "prediction": fields.String(required=True),
+        "confidence": fields.String(required=True)
+    }
+)
+
 
 @api.route("/predict_current/")
 class Prediction(Resource):
     @api.expect(pipedesign_model, validate=True)
+    @api.response(200, 'Success', prediction_schema)
+    @api.response(405, "Method not allowed")
     def post(self):
         """Returns a prediction on the viability of a single pipedesign using the current trained model."""
 
@@ -39,6 +50,8 @@ class Prediction(Resource):
 @api.route("/predict_pickled/")
 class PickledPrediction(Resource):
     @api.expect(pipedesign_model, validate=True)
+    @api.response(200, 'Success', prediction_schema)
+    @api.response(405, "Method not allowed")
     def post(self):
         """Returns a prediction on the viability of a single pipedesign using the activated pickled model."""
         
