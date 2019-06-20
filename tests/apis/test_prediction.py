@@ -28,3 +28,4 @@ class TestPrediction():
         pipedesign_json = HelperFunctions._load_json()
         resp = client.post("prediction/predict_pickled/", json=pipedesign_json)
         assert resp.status_code == 200
+        assert resp.json["prediction"] == "Viable"
