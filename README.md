@@ -27,21 +27,25 @@ The following code demonstrates usage with valid json data in python 3. Start a 
 ````python
 import requests, json
 
-url = "http://pipedesign.azurewebsites.net/prediction/"
+# Activate pickled model from Azure blob storage
+activate_url = "http://pipedesign.azurewebsites.net/model/activate_pickled/test_model_1_do_not_delete/"
+requests.put(url=activate_url)
+
+# Retrieve prediction on pipedesign
+predict_url = "http://pipedesign.azurewebsites.net/prediction/predict_pickled/"
 with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as f:
     json_data=json.load(f)
 
-r = requests.post(url, json=json_data)
-
-print(r.json())
+response = requests.post(predict_url, json=json_data)
+print(response.json())
 ````
 
 If there is a trained model available, you should get the following response:
 ````javascript
 {
-    'confidence': '0.0',
-    'label': '1',
-    'pipedesign_id':'0a234fea9682454facab730c0a7f83f0',
-    'prediction': 'Viable'
+    "confidence": "0.00985992289985627",
+    "label": "1",
+    "pipedesign_id": "0a234fea9682454facab730c0a7f83f0",
+    "prediction": "Viable"
 }
 ````
