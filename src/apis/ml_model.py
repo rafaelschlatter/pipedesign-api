@@ -1,4 +1,3 @@
-import os
 from flask import jsonify, current_app
 from flask_restplus import Resource, Namespace, fields, abort
 from src.apis.cache import cache
@@ -79,7 +78,7 @@ class CurrentTraining(Resource):
         samples = int(training_samples)
         handler = blobhandler.BlobHandler()
         blobs = handler.download_blobs(current_app.config["CONTAINER_NAME_DATA"], number_of_blobs=samples)
-        
+
         if blobs == None:
             message = "Failed to connect to azure blob."
             abort(500, custom=message)

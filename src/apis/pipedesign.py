@@ -1,4 +1,3 @@
-import os
 from flask import jsonify, current_app
 from flask_restplus import Resource, Namespace, fields, abort
 from src.infrastructure import blobhandler

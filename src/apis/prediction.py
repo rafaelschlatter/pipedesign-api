@@ -54,7 +54,7 @@ class PickledPrediction(Resource):
     @api.response(405, "Method not allowed")
     def post(self):
         """Returns a prediction on the viability of a single pipedesign using the activated pickled model."""
-        
+
         if "pickled_model" not in cache.keys():
             message = "No pickled model is activated yet. Activate model first."
             abort(405, custom=message)

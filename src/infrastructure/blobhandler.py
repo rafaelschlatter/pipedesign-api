@@ -27,7 +27,7 @@ class BlobHandler():
         """
 
         # list_blobs() returns a generator of blobs, but the blobs do not contain the actual blob content.
-        # list_blobs is only used to get the names of blobs, which then can be retrieved with 
+        # list_blobs is only used to get the names of blobs, which then can be retrieved with
         blob_generator = self.block_blob_service.list_blobs(container_name=container_name, num_results=number_of_blobs)
 
         pipedesign_list = []
@@ -72,8 +72,8 @@ class BlobHandler():
         Returns (bool): True if saving to blob was successful, False otherwise.
         """
 
-        pipedesign_string = json.dumps(pipedesign_json)
         try:
+            pipedesign_string = json.dumps(pipedesign_json)
             self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
             return (True, )
         except Exception as e:
@@ -104,7 +104,7 @@ class BlobHandler():
             container_name (string): The name of Azure blob container.
             pickled_model: Machine learning model in pickle format.
 
-        Returns (bool): Ture if saving to blob was successful, False otherwise. 
+        Returns (bool): Ture if saving to blob was successful, False otherwise.
         """
 
         model_bytes = pickle.dumps(model)

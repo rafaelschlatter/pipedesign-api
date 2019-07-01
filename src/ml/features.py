@@ -21,6 +21,6 @@ pipe_features = pd.core.indexes.base.Index(
         'segment_8_Y_Start', 'segment_8_Z_End', 'segment_8_Z_Start',
         'segment_9_X_End', 'segment_9_X_Start', 'segment_9_Y_End',
         'segment_9_Y_Start', 'segment_9_Z_End', 'segment_9_Z_Start'
-    ], 
+    ],
         dtype='object'
 )
