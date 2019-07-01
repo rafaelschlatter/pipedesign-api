@@ -1,8 +1,6 @@
-from flask import Flask
-from src.apis import api
+from src import create_app
 
-app = Flask(__name__)
-api.init_app(app)
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(debug=True)
