@@ -1,11 +1,8 @@
 import os
-import traceback
-from flask import jsonify
-from flask_restplus import Resource, Namespace, fields
-from flask_restplus import abort
+from flask import jsonify, current_app
+from flask_restplus import Resource, Namespace, fields, abort
 from src.apis.cache import cache
-from src.ml import model
-from src.ml import preprocessor
+from src.ml import model, preprocessor
 from src.infrastructure import blobhandler
 
 
@@ -81,7 +78,7 @@ class CurrentTraining(Resource):
 
         samples = int(training_samples)
         handler = blobhandler.BlobHandler()
-        blobs = handler.download_blobs(os.environ["CONTAINER_NAME_DATA"], number_of_blobs=samples)
+        blobs = handler.download_blobs(current_app.config["CONTAINER_NAME_DATA"], number_of_blobs=samples)
         
         if blobs == None:
             message = "Failed to connect to azure blob."
@@ -111,7 +108,7 @@ class PickledTraining(Resource):
         """Activates a pickled model from Azure blob storage that can be used to make predictions."""
 
         handler = blobhandler.BlobHandler()
-        model = handler.azure_blob_to_model(model_id=model_id, container_name=os.environ["CONTAINER_NAME_MODELS"])
+        model = handler.azure_blob_to_model(model_id=model_id, container_name=current_app.config["CONTAINER_NAME_MODELS"])
 
         if model[0] == False:
             message = "Failed to download model from Azure blob. {}".format(str(model[1]))
