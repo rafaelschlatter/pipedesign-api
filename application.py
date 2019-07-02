@@ -1,8 +1,9 @@
-from flask import Flask
-from src.apis import api
+from src import create_app
 
-app = Flask(__name__)
-api.init_app(app)
+# For Azure app service
+app = create_app(config_name="prod")
 
+# For easy local testing
 if __name__ == '__main__':
-    app.run(debug=True)
+    local_app = create_app(config_name="dev")
+    local_app.run()

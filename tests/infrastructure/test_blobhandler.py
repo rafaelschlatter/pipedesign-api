@@ -16,7 +16,7 @@ class TestBlobHandler():
         handler = blobhandler.BlobHandler()
         result = handler.azure_blob_to_json(container_name=os.environ["CONTAINER_NAME_DATA"], blob_name="test_blob_do_not_delete")
         assert result[0] == True
-        json_data = result[1] 
+        json_data = result[1]
         assert isinstance(result[1], dict)
         assert "timestamp" in json_data.keys()
         assert "design_id" in json_data.keys()
