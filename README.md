@@ -21,6 +21,14 @@ source pipedesign-ml/bin/activate
 pip install -r requirements.txt
 ````
 
+You need to set the following environment variables:
+````bash
+STORAGE_ACC_NAME=<your-storage-account-name>
+BLOB_KEY1=<your-storage-account-key>
+CONTAINER_NAME_DATA=<container-name-containing-training-data>
+CONTAINER_NAME_MODELS=<container-name-containing-models>
+````
+
 ## Usage in client application
 The following code demonstrates usage with valid json data in python 3. Start a terminal at the root folder and run the following code:
 
