@@ -10,14 +10,14 @@ Azure app service on linux needs a **requirements.txt** file for all dependencie
 
 Clone the repo and create a virtual environment with `virutalenv`:
 ````bash
-git clone https://github.com/rafaelschlatter/pipedesign-ml.git
-cd pipedesign-ml
-virtualenv pipedesign-ml
+git clone https://github.com/rafaelschlatter/pipedesign-api.git
+cd pipedesign-api
+virtualenv pipedesign-api
 ````
 
 Activate it and install dependencies:
 ````bash
-source pipedesign-ml/bin/activate
+source pipedesign-api/bin/activate
 pip install -r requirements.txt
 ````
 
