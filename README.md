@@ -30,6 +30,11 @@ CONTAINER_NAME_DATA=<container-name-containing-training-data>
 CONTAINER_NAME_MODELS=<container-name-containing-models>
 ````
 
+Run tests locally and produce coverage report:
+````bash
+python -m pytest -v --cov=src
+````
+
 ## Usage in client application
 The following code demonstrates usage with valid json data in python 3. Start a terminal at the root folder and run the following code:
 
