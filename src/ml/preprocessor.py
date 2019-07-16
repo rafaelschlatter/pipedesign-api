@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class Preprocessor():
+class Preprocessor:
     """This class is used to download and preprocess pipedesign data in json format. It contains methods to do
     all transformations needed to create a dataset ready to be consumed by a machine learning model.
     """
@@ -9,7 +9,6 @@ class Preprocessor():
     def __init__(self):
         """Constructor."""
         pass
-
 
     def create_training_data(self, pipedesign_list):
         """Creates a training dataset from a list of pipedesign dictionaries.
@@ -27,7 +26,6 @@ class Preprocessor():
 
         return dataset
 
-
     def flatten_pipesegments(self, pipedesign):
         """Flattens the pipesegments dict from a pipedesign.
 
@@ -40,12 +38,18 @@ class Preprocessor():
         pipedesign_json = pd.io.json.json_normalize(pipedesign)
         for segment in pipedesign_json["pipe_segments"][0]:
             for point in segment["points"]:
-                col_name_x = "segment_{0}_X_{1}".format(segment["segment_id"], point["end"])
-                col_name_y = "segment_{0}_Y_{1}".format(segment["segment_id"], point["end"])
-                col_name_z = "segment_{0}_Z_{1}".format(segment["segment_id"], point["end"])
+                col_name_x = "segment_{0}_X_{1}".format(
+                    segment["segment_id"], point["end"]
+                )
+                col_name_y = "segment_{0}_Y_{1}".format(
+                    segment["segment_id"], point["end"]
+                )
+                col_name_z = "segment_{0}_Z_{1}".format(
+                    segment["segment_id"], point["end"]
+                )
                 pipedesign_json[col_name_x] = point["X"]
                 pipedesign_json[col_name_y] = point["Y"]
                 pipedesign_json[col_name_z] = point["Z"]
 
-        pipedesign_json.drop('pipe_segments', axis=1, inplace=True)
+        pipedesign_json.drop("pipe_segments", axis=1, inplace=True)
         return pipedesign_json
