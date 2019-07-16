@@ -5,16 +5,18 @@ import pickle
 import uuid
 
 
-class BlobHandler():
+class BlobHandler:
     """This class communicates with Azure blob storage."""
 
     def __init__(self):
         """Constructor."""
 
-        self.block_blob_service = BlockBlobService(account_name=os.environ["STORAGE_ACC_NAME"], account_key=os.environ["BLOB_KEY1"])
+        self.block_blob_service = BlockBlobService(
+            account_name=os.environ["STORAGE_ACC_NAME"],
+            account_key=os.environ["BLOB_KEY1"],
+        )
         self.container_name_data = os.environ["CONTAINER_NAME_DATA"]
         self.container_name_models = os.environ["CONTAINER_NAME_MODELS"]
-
 
     def download_blobs(self, container_name, number_of_blobs=5):
         """This method downloads json data from an Azure storage account (blobs).
@@ -28,11 +30,15 @@ class BlobHandler():
 
         # list_blobs() returns a generator of blobs, but the blobs do not contain the actual blob content.
         # list_blobs is only used to get the names of blobs, which then can be retrieved with
-        blob_generator = self.block_blob_service.list_blobs(container_name=container_name, num_results=number_of_blobs)
+        blob_generator = self.block_blob_service.list_blobs(
+            container_name=container_name, num_results=number_of_blobs
+        )
 
         pipedesign_list = []
         for blob in blob_generator:
-            result = self.azure_blob_to_json(container_name=container_name, blob_name=blob.name)
+            result = self.azure_blob_to_json(
+                container_name=container_name, blob_name=blob.name
+            )
             if result[0] == True:
                 pipedesign_list.append(result[1])
             else:
@@ -42,7 +48,6 @@ class BlobHandler():
             return pipedesign_list
         else:
             return None
-
 
     def azure_blob_to_json(self, blob_name, container_name):
         """Downloads a blob from an Azure storage account and transfers the content to json.
@@ -55,12 +60,13 @@ class BlobHandler():
         """
 
         try:
-            pipedesign_txt = self.block_blob_service.get_blob_to_text(container_name=container_name, blob_name=blob_name)
+            pipedesign_txt = self.block_blob_service.get_blob_to_text(
+                container_name=container_name, blob_name=blob_name
+            )
             return (True, json.loads(pipedesign_txt.content))
         except Exception as e:
             print(e)
             return (False, e)
-
 
     def json_to_azure_blob(self, pipedesign_json, container_name):
         """Saves a pipedesign in json format to Azure blob. Overwrites the blob if it already exists.
@@ -74,11 +80,14 @@ class BlobHandler():
 
         try:
             pipedesign_string = json.dumps(pipedesign_json)
-            self.block_blob_service.create_blob_from_text(container_name=container_name, blob_name=pipedesign_json["design_id"], text=pipedesign_string)
-            return (True, )
+            self.block_blob_service.create_blob_from_text(
+                container_name=container_name,
+                blob_name=pipedesign_json["design_id"],
+                text=pipedesign_string,
+            )
+            return (True,)
         except Exception as e:
             return (False, e)
-
 
     def azure_blob_to_model(self, model_id, container_name):
         """Retrieved a pickled model from Azure blob storage.
@@ -91,11 +100,12 @@ class BlobHandler():
         """
 
         try:
-            model = self.block_blob_service.get_blob_to_bytes(container_name=container_name, blob_name=model_id)
+            model = self.block_blob_service.get_blob_to_bytes(
+                container_name=container_name, blob_name=model_id
+            )
             return (True, pickle.loads(model.content))
         except Exception as e:
             return (False, e)
-
 
     def model_to_azure_blob(self, model, container_name, blob_name=uuid.uuid4().hex):
         """Pickles and saves a model to Azure blob storage.
@@ -109,7 +119,9 @@ class BlobHandler():
 
         model_bytes = pickle.dumps(model)
         try:
-            self.block_blob_service.create_blob_from_bytes(container_name=container_name, blob_name=blob_name, blob=model_bytes)
-            return (True, )
+            self.block_blob_service.create_blob_from_bytes(
+                container_name=container_name, blob_name=blob_name, blob=model_bytes
+            )
+            return (True,)
         except Exception as e:
             return (False, e)

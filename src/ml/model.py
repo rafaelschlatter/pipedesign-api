@@ -5,7 +5,7 @@ from src.ml import preprocessor
 from src.ml.features import pipe_features
 
 
-class Model():
+class Model:
     """This class holds a machine learning model which is exposed in the flask app.
     Client applications can request predictions from this model.
     """
@@ -16,7 +16,6 @@ class Model():
         self.classifier = None
         self.last_train_time_utc = None
         self.samples_used = None
-
 
     def train(self, training_data):
         """Trains a model on the given data.
@@ -33,7 +32,6 @@ class Model():
         self.classifier = clf
         self.last_train_time_utc = datetime.utcnow()
         self.samples_used = len(training_data)
-
 
     def predict(self, json_data):
         """Returns a prediction for a single case, given the input data.

@@ -1,7 +1,7 @@
 import os
 
 
-class Config():
+class Config:
     BLOB_KEY1 = os.environ["BLOB_KEY1"]
     STORAGE_ACC_NAME = os.environ["STORAGE_ACC_NAME"]
     CONTAINER_NAME_DATA = os.environ["CONTAINER_NAME_DATA"]
@@ -26,8 +26,4 @@ class ProductionConfig(Config):
     TESTING = False
 
 
-config_by_name = dict(
-    dev=DevelopmentConfig,
-    test=TestingConfig,
-    prod=ProductionConfig
-)
+config_by_name = dict(dev=DevelopmentConfig, test=TestingConfig, prod=ProductionConfig)
