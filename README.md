@@ -36,8 +36,13 @@ Run tests locally and produce coverage report:
 python -m pytest -v --cov=src
 ````
 
-## Usage in client application
-The following code demonstrates usage with valid json data in python 3. Start a terminal at the root folder and run the following code:
+## Usage
+Run the app locally with the following command at the root folder:
+````bash
+python application.py
+````
+
+You can also try the app hosted on Azure. The following code demonstrates usage with valid json data in python 3. Start a terminal at the root folder and run the following code:
 
 ````python
 import requests, json
