@@ -29,6 +29,7 @@ STORAGE_ACC_NAME=<your-storage-account-name>
 BLOB_KEY1=<your-storage-account-key>
 CONTAINER_NAME_DATA=<container-name-containing-training-data>
 CONTAINER_NAME_MODELS=<container-name-containing-models>
+APPINSIGHTS_INSTRUMENTATIONKEY=<application-insights-instrumentation-key>
 ````
 
 Run tests locally and produce coverage report:
