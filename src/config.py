@@ -10,19 +10,19 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    ENV = "development"
+    ENV = "dev"
     DEBUG = True
     TESTING = False
 
 
 class TestingConfig(Config):
-    ENV = "testing"
+    ENV = "test"
     DEBUG = True
     TESTING = True
 
 
 class ProductionConfig(Config):
-    ENV = "production"
+    ENV = "prod"
     DEBUG = False
     TESTING = False
 
