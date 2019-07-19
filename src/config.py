@@ -6,6 +6,7 @@ class Config:
     STORAGE_ACC_NAME = os.environ["STORAGE_ACC_NAME"]
     CONTAINER_NAME_DATA = os.environ["CONTAINER_NAME_DATA"]
     CONTAINER_NAME_MODELS = os.environ["CONTAINER_NAME_MODELS"]
+    APPINSIGHTS_INSTRUMENTATIONKEY = os.environ["APPINSIGHTS_INSTRUMENTATIONKEY"]
 
 
 class DevelopmentConfig(Config):

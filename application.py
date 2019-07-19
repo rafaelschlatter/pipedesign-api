@@ -1,5 +1,6 @@
 from src import create_app
 
+
 # For Azure app service
 app = create_app(config_name="prod")
 
