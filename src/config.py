@@ -1,4 +1,5 @@
 import os
+import logging
 
 
 class Config:
@@ -13,18 +14,21 @@ class DevelopmentConfig(Config):
     ENV = "dev"
     DEBUG = True
     TESTING = False
+    LOGGING_LEVEL = logging.DEBUG
 
 
 class TestingConfig(Config):
     ENV = "test"
     DEBUG = True
     TESTING = True
+    LOGGING_LEVEL = logging.INFO
 
 
 class ProductionConfig(Config):
     ENV = "prod"
     DEBUG = False
     TESTING = False
+    LOGGING_LEVEL = logging.ERROR
 
 
 config_by_name = dict(dev=DevelopmentConfig, test=TestingConfig, prod=ProductionConfig)

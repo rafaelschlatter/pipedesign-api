@@ -13,9 +13,10 @@ def create_app(config_name="dev"):
 
     @app.after_request
     def after_request(response):
-        app.logger.setLevel(logging.DEBUG)
+        app.logger.setLevel(app.config["LOGGING_LEVEL"])
+        _env = app.config["ENV"]
         app.logger.critical(
-            f"{response.status} - {request.remote_addr} - {request.method} - {request.scheme} - {request.full_path}"
+            f"{_env}: {response.status} - {request.remote_addr} - {request.method} - {request.scheme} - {request.full_path}"
         )
         app_insights.flush()
         return response
