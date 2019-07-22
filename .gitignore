@@ -1,6 +1,5 @@
 *.DS_Store
 *__pycache__
-*.env
 *.vscode
 *.log
 .pytest_cache
@@ -8,3 +7,4 @@
 .coverage*
 pipedesign-ml
 notebooks
+env/
