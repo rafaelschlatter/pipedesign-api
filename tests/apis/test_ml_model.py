@@ -1,8 +1,13 @@
+import pytest
+
+
 class TestMLModel:
+    @pytest.mark.skip(reason="deprecated endpoint")
     def test_model_get_current_model_failure(self, client):
         resp = client.get("/model/current/")
         assert resp.status_code == 404
 
+    @pytest.mark.skip(reason="deprecated endpoint")
     def test_model_get_current_model_success(self, client):
         client.put("/model/train_current/50/")
         resp = client.get("/model/current/")
@@ -18,11 +23,13 @@ class TestMLModel:
         resp = client.get("model/pickled/")
         assert resp.status_code == 200
 
+    @pytest.mark.skip(reason="deprecated endpoint")
     def test_model_train_current_success(self, client):
         resp = client.put("/model/train_current/50/")
         assert resp.status_code == 200
         assert resp.json["training_result"] == "Successfully trained model"
 
+    @pytest.mark.skip(reason="deprecated endpoint")
     def test_model_train_current_with_invalid_parameter(self, client):
         resp = client.put("/model/train_current/f/")
         assert resp.status_code == 500

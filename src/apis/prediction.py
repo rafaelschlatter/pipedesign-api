@@ -22,7 +22,7 @@ prediction_schema = api.model(
 )
 
 
-@api.route("/predict_current/")
+#@api.route("/predict_current/")
 class Prediction(Resource):
     @api.expect(pipedesign_model, validate=True)
     @api.response(200, "Success", prediction_schema)

@@ -28,7 +28,7 @@ training_result_schema = api.model(
 )
 
 
-@api.route("/current/")
+#@api.route("/current/")
 class Model(Resource):
     @api.response(200, "Success", model_info_schema)
     @api.response(404, "Not found")
@@ -76,7 +76,7 @@ class PickledModel(Resource):
             )
 
 
-@api.route("/train_current/<training_samples>/")
+#@api.route("/train_current/<training_samples>/")
 @api.param("training_samples", "Number of samples to be used in training")
 class CurrentTraining(Resource):
     @api.response(200, "Success", training_result_schema)
