@@ -7,4 +7,5 @@
 .coverage*
 pipedesign-ml
 notebooks
+env
 env/
