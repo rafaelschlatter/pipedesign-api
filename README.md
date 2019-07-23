@@ -32,9 +32,10 @@ CONTAINER_NAME_MODELS=<container-name-containing-models>
 APPINSIGHTS_INSTRUMENTATIONKEY=<application-insights-instrumentation-key>
 ````
 
-Run tests locally and produce coverage report:
+Run tests locally and produce coverage report (all or a specific file):
 ````bash
 python -m pytest -v --cov=src
+python -m pytest tests/infrastructure/blobhandler.py -v --cov=src
 ````
 
 ## Usage

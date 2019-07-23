@@ -29,3 +29,16 @@ class HelperFunctions:
         clf.fit(X, y)
 
         return clf
+
+    @staticmethod
+    def _create_training_metrics():
+        training_metrics = {
+            "model_name": "test_model",
+            "run_id": 1234,
+            "model_id": "test_metrics_do_not_delete",
+            "model_type": "test model type",
+            "avg_accuracy": 0.7,
+            "avg_f1": 0.6,
+        }
+
+        return training_metrics
