@@ -89,3 +89,22 @@ class TestBlobHandler:
         )
         assert result[0] == False
         assert isinstance(result[1], AzureHttpError)
+
+    def test_training_metrics_to_azure_blob_success(self):
+        metrics_dict = HelperFunctions._create_training_metrics()
+        handler = blobhandler.BlobHandler()
+        result = handler.training_metrics_to_azure_blob(
+            training_metrics_dict=metrics_dict,
+            container_name=os.environ["CONTAINER_NAME_MODELS"]
+        )
+        assert result[0] == True
+
+    def test_training_metrics_to_azure_blob_failure(self):
+        metrics_dict = HelperFunctions._create_training_metrics()
+        handler = blobhandler.BlobHandler()
+        result = handler.training_metrics_to_azure_blob(
+            training_metrics_dict=metrics_dict,
+            container_name="non_existant_container"
+        )
+        assert result[0] == False
+        assert isinstance(result[1], AzureHttpError)

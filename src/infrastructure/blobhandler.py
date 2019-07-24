@@ -125,3 +125,24 @@ class BlobHandler:
             return (True,)
         except Exception as e:
             return (False, e)
+
+    def training_metrics_to_azure_blob(self, training_metrics_dict, container_name):
+        """Saves model training metrics in json format to Azure blob. Overwrites the blob if it already exists.
+
+        Args:
+            container_name (string): The container to store the json file in.
+            training_metrics_dict (dict): The training metrics in json format.
+
+        Returns (bool): True if saving to blob was successful, False otherwise.
+        """
+        
+        training_metrics_string = json.dumps(training_metrics_dict)
+        try:
+            self.block_blob_service.create_blob_from_text(
+                container_name=container_name,
+                blob_name=training_metrics_dict["model_id"],
+                text=training_metrics_string,
+            )
+            return (True,)
+        except Exception as e:
+            return (False, e)
