@@ -28,33 +28,6 @@ training_result_schema = api.model(
 )
 
 
-#@api.route("/current/")
-class Model(Resource):
-    @api.response(200, "Success", model_info_schema)
-    @api.response(404, "Not found")
-    def get(self):
-        """Returns information about the current trained model."""
-
-        if "trained_model" not in cache.keys():
-            message = "No trained model found. Train model first."
-            abort(404, custom=message)
-
-        if cache["trained_model"]:
-            return jsonify(
-                {
-                    "model_type": "{}".format(
-                        str(type(cache["trained_model"].classifier))
-                    ),
-                    "last_trained": "{}".format(
-                        str(cache["trained_model"].last_train_time_utc)
-                    ),
-                    "samples_used": "{}".format(
-                        str(cache["trained_model"].samples_used)
-                    ),
-                }
-            )
-
-
 @api.route("/pickled/")
 class PickledModel(Resource):
     @api.response(200, "Success", model_info_schema)
@@ -72,40 +45,6 @@ class PickledModel(Resource):
                     "model_type": "{}".format(str(type(cache["pickled_model"]))),
                     "last_trained": "unknown",
                     "samples_used": "unknown",
-                }
-            )
-
-
-#@api.route("/train_current/<training_samples>/")
-@api.param("training_samples", "Number of samples to be used in training")
-class CurrentTraining(Resource):
-    @api.response(200, "Success", training_result_schema)
-    @api.response(500, "Internal server error")
-    def put(self, training_samples):
-        """Initiates and trains a random forest model that can be used to make predictions."""
-
-        samples = int(training_samples)
-        handler = blobhandler.BlobHandler()
-        blobs = handler.download_blobs(
-            current_app.config["CONTAINER_NAME_DATA"], number_of_blobs=samples
-        )
-
-        if blobs == None:
-            message = "Failed to connect to azure blob."
-            abort(500, custom=message)
-
-        else:
-            proc = preprocessor.Preprocessor()
-            training_data = proc.create_training_data(blobs)
-            classifier = model.Model()
-            classifier.train(training_data=training_data)
-            cache["trained_model"] = classifier
-
-            return jsonify(
-                {
-                    "training_result": "Successfully trained model",
-                    "trained_model": "{}".format(str(type(classifier.classifier))),
-                    "samples_used": "{}".format(len(blobs)),
                 }
             )
 

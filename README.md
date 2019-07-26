@@ -5,7 +5,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 ## About
-This is a python flask API that is hosted on Microsoft Azure app service. The API allows to train a machine learning model and request predictions on new data. Please visit the base url at <http://pipedesign.azurewebsites.net> to see the Swagger api documentation.
+This is a python flask API that is hosted on Microsoft Azure app service. The API allows to activate pickled machine learning models from an Azure blob storage and request predictions on new data. The Swagger api documentation can be found at <http://pipedesign.azurewebsites.net>.
 
 ## Setup
 Azure app service on linux needs a **requirements.txt** file for all dependencies except flask. A pipenv workflow probably fails (not tested).
