@@ -22,34 +22,6 @@ prediction_schema = api.model(
 )
 
 
-#@api.route("/predict_current/")
-class Prediction(Resource):
-    @api.expect(pipedesign_model, validate=True)
-    @api.response(200, "Success", prediction_schema)
-    @api.response(405, "Method not allowed")
-    def post(self):
-        """Returns a prediction on the viability of a single pipedesign using the current trained model."""
-
-        if "trained_model" not in cache.keys():
-            message = "Model has not been trained yet. Train model first."
-            abort(405, custom=message)
-
-        label, confidence = cache["trained_model"].predict(api.payload)
-        if label[0] == 1:
-            prediction = "Viable"
-        if label[0] == 0:
-            prediction = "Unviable"
-
-        return jsonify(
-            {
-                "pipedesign_id": "{}".format(api.payload["design_id"]),
-                "label": "{}".format(label[0]),
-                "prediction": "{}".format(prediction),
-                "confidence": "{}".format(confidence[0][0]),
-            }
-        )
-
-
 @api.route("/predict_pickled/")
 class PickledPrediction(Resource):
     @api.expect(pipedesign_model, validate=True)
