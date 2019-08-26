@@ -1,4 +1,3 @@
-import pytest
 from tests.helper_functions import HelperFunctions
 
 

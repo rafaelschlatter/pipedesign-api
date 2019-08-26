@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestMLModel:
     def test_model_get_pickled_model_failure(self, client):
         resp = client.get("model/pickled/")

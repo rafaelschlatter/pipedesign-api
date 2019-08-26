@@ -135,7 +135,7 @@ class BlobHandler:
 
         Returns (bool): True if saving to blob was successful, False otherwise.
         """
-        
+
         training_metrics_string = json.dumps(training_metrics_dict)
         try:
             self.block_blob_service.create_blob_from_text(
