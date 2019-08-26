@@ -1,7 +1,7 @@
 from flask import jsonify, current_app
 from flask_restplus import Resource, Namespace, fields, abort
 from src.apis.cache import cache
-from src.ml import model, preprocessor
+from src.ml import model
 from src.infrastructure import blobhandler
 
 
