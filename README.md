@@ -5,7 +5,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 ## About
-This is a python flask API that is hosted on Microsoft Azure app service. The API allows to activate pickled machine learning models from an Azure blob storage and request predictions on new data. The API can be tested using the Swagger ui here: <http://pipedesign-dev.azurewebsites.net/>.
+This is a python flask API that is hosted on Microsoft Azure app service. The API allows to activate pickled machine learning models from an Azure blob storage and request predictions on new data. The API can be tested using the Swagger ui here: <http://pipedesign.azurewebsites.net/>.
 
 ## Setup
 Azure app service on linux needs a **requirements.txt** file for all dependencies except flask. A pipenv workflow probably fails (not tested).
@@ -50,11 +50,11 @@ You can also try the app hosted on Azure. The following code demonstrates usage 
 import requests, json
 
 # Activate pickled model from Azure blob storage
-activate_url = "http://pipedesign-dev.azurewebsites.net/model/activate_pickled/test_model_1_do_not_delete/"
+activate_url = "http://pipedesign.azurewebsites.net/model/activate_pickled/test_model_1_do_not_delete/"
 requests.put(url=activate_url)
 
 # Retrieve prediction on pipedesign
-predict_url = "http://pipedesign-dev.azurewebsites.net/prediction/predict_pickled/"
+predict_url = "http://pipedesign.azurewebsites.net/prediction/predict_pickled/"
 with open("data/json/0a234fea9682454facab730c0a7f83f0.json") as f:
     json_data=json.load(f)
 
