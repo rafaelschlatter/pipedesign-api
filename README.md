@@ -1,6 +1,6 @@
 # Pipedesign-api
 [![Build Status](https://travis-ci.org/rafaelschlatter/pipedesign-api.svg?branch=master)](https://travis-ci.org/rafaelschlatter/pipedesign-api)
-[![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-ml/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-ml)
+[![codecov](https://codecov.io/gh/rafaelschlatter/pipedesign-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rafaelschlatter/pipedesign-api)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6f28fe09f64e4eaaa866498be841fa84)](https://app.codacy.com/app/rafaelschlatter/pipedesign-api?utm_source=github.com&utm_medium=referral&utm_content=rafaelschlatter/pipedesign-api&utm_campaign=Badge_Grade_Settings)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
