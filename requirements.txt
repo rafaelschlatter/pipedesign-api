@@ -47,6 +47,6 @@ six==1.15.0
 toml==0.10.1
 typed-ast==1.4.1
 urllib3==1.25.9
-wcwidth==0.2.4
+wcwidth==0.2.5
 werkzeug==1.0.1
 wrapt==1.12.1
