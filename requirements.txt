@@ -19,7 +19,7 @@ cryptography==2.9.2
 Flask==1.1.2
 flask-restplus==0.13.0
 idna==2.10
-isort==5.0.7
+isort==5.0.8
 itsdangerous==1.1.0
 Jinja2==2.11.2
 joblib==0.16.0
