@@ -48,5 +48,5 @@ toml==0.10.2
 typed-ast==1.4.1
 urllib3==1.26.2
 wcwidth==0.2.5
-werkzeug==1.0.1
+werkzeug==0.15.3
 wrapt==1.12.1
