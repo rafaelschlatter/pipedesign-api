@@ -7,7 +7,7 @@ atomicwrites==1.4.0
 attrs==20.3.0
 azure-common==1.1.26
 azure-nspkg==3.0.2
-azure-storage==0.37.0
+azure-storage==0.36.0
 certifi==2020.12.5
 cffi==1.14.4
 chardet==4.0.0
@@ -48,5 +48,5 @@ toml==0.10.2
 typed-ast==1.4.1
 urllib3==1.26.2
 wcwidth==0.2.5
-werkzeug==1.0.1
+werkzeug==0.15.3
 wrapt==1.12.1
