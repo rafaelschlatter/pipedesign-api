@@ -46,7 +46,7 @@ scipy==1.6.1
 six==1.15.0
 toml==0.10.2
 typed-ast==1.4.2
-urllib3==1.26.3
+urllib3==1.26.4
 wcwidth==0.2.5
 werkzeug==1.0.1
 wrapt==1.12.1
