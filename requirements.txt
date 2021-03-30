@@ -33,7 +33,7 @@ pandas==1.2.3
 pluggy==0.13.1
 py==1.10.0
 pycparser==2.20
-pylint==2.7.2
+pylint==2.7.3
 pyrsistent==0.17.3
 pytest==6.2.2
 pytest-cov==2.11.1
