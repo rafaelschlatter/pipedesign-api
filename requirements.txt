@@ -1,6 +1,6 @@
 aniso8601==9.0.1
 appdirs==1.4.4
-applicationinsights==0.11.9
+applicationinsights==0.11.10
 asn1crypto==1.4.0
 astroid==2.5.3
 atomicwrites==1.4.0
