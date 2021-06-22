@@ -2,7 +2,7 @@ aniso8601==9.0.1
 appdirs==1.4.4
 applicationinsights==0.11.10
 asn1crypto==1.4.0
-astroid==2.5.8
+astroid==2.6.0
 atomicwrites==1.4.0
 attrs==21.2.0
 azure-common==1.1.27
